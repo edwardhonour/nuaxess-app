@@ -79,7 +79,7 @@
         <div class="flex-1 min-w-0">
             <div class="mt-2">
                 <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
-                    Plan List 
+                    Active Plans
                 </h2>
             </div>
         </div>
@@ -94,33 +94,36 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="card card-body">
+                <div *ngFor="let m of data.list" class="card">
+<div class="card-header">{{ m.plan_code }}</div>
+<div class="card-body">
                 <div class="table-responsive">
-                    <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
-                        Active Plans
-                    </h2>
                     <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Plan Name</th>
-                                <th style="text-align: right;">Employee Price</th>
-                                <th style="text-align: right;">Employee & Spouse</th>
-                                <th style="text-align: right;">Employee & Children</th>
-                                <th style="text-align: right;">Family</th>
-                                <th>Plan Type</th>
-                            </tr>
-                        </thead>
                         <tbody>
-                            <tr *ngFor="let m of data.list">
-                                <td>{{ m.plan_code }}</td>
+                            <tr>
+                                <td>Employee Only</td>
                                 <td style="text-align: right;">${{ m.ee_price }}</td>
+                            </tr>
+
+                            <tr>
+                                <td>Employee & Spouse</td>
                                 <td style="text-align: right;">${{ m.ees_price }}</td>
+                             </tr>
+                             <tr>
+                                <td>Employee & Children</td>
                                 <td style="text-align: right;">${{ m.eec_price }}</td>
+                             </tr>
+                           <tr>
+                                <td>Family</td>
                                 <td style="text-align: right;">${{ m.fam_price }}</td>
+                             </tr>
+                             <tr>
+                                <td>Plan Type</td>
                                 <td style="text-align: right;">{{ m.plan_type }}</td>
                              </tr>
                         </tbody>
                     </table>
+                </div>
                 </div>
             </div>
             </div>
