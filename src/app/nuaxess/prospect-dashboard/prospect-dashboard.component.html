@@ -1,0 +1,631 @@
+<!-- Loading bar -->
+<fuse-loading-bar></fuse-loading-bar>
+<!-- Navigation -->
+<fuse-vertical-navigation
+    class="dark bg-gray-900 print:hidden"
+    [mode]="isScreenSmall ? 'over' : 'side'"
+    [name]="'mainNavigation'"
+    [navigation]="navigation.default"
+    [opened]="!isScreenSmall">
+    <!-- Navigation header hook -->
+    <ng-container fuseVerticalNavigationContentHeader>
+        <div class="flex items-center w-full p-4 pl-6">
+            <!-- Logo -->
+            <div class="flex items-center justify-center">
+                <img
+                    class="w-8"
+                    src="assets/images/logo/logo.png">
+            </div>
+            <!-- Components -->
+            <div class="flex items-center ml-auto">
+                <notifications></notifications>
+                <user [showAvatar]="false"></user>
+            </div>
+        </div>
+        <!-- User -->
+        <div class="flex flex-col items-center w-full p-4">
+            <div class="relative w-24 h-24">
+                <img
+                    class="w-full h-full rounded-full"
+                    *ngIf="user.avatar"
+                    [src]="user.avatar"
+                    alt="User avatar">
+                <mat-icon
+                    class="icon-size-24"
+                    *ngIf="!user.avatar"
+                    [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+            </div>
+            <div class="flex flex-col items-center justify-center w-full mt-6">
+                <div class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden text-center leading-normal font-medium">
+                    {{user.name}}
+                </div>
+                <div class="w-full mt-0.5 whitespace-nowrap overflow-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary">
+                    {{user.email}}
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <!-- Navigation footer hook -->
+    <ng-container fuseVerticalNavigationContentFooter>
+        <div class="flex flex-0 items-center justify-center h-16 pr-6 pl-2 mt-2 mb-4 opacity-12">
+            <img
+                class="max-w-36"
+                src="assets/images/logo/logo-text-on-dark.png">
+        </div>
+    </ng-container>
+</fuse-vertical-navigation>
+
+<div
+    class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto"
+    cdkScrollable>
+<!--- THIS IS MOVED INSIDE THE MAIN SECTION AFTER THE FIRST LINE -->
+<div class="relative flex flex-0 items-center w-full h-16 px-4 md:px-6 z-49 shadow dark:shadow-none dark:border-b bg-card dark:bg-transparent print:hidden">
+    <!-- Navigation toggle button -->
+    <button
+        mat-icon-button
+        (click)="toggleNavigation('mainNavigation')">
+        <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
+    </button>
+    <!-- Components -->
+    <div class="flex items-center pl-2 ml-auto space-x-0.5 sm:space-x-2">
+        <languages></languages>
+        <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
+        <search [appearance]="'bar'"></search>
+        <shortcuts></shortcuts>
+        <messages></messages>
+    </div>
+</div>
+    <!-- Header -->
+    <div class="relative flex-0 py-8 px-4 sm:p-16 overflow-hidden bg-gray-800 dark"  style="padding-bottom: 20px !important; padding-top: 20px !important;">
+        <!-- Background - @formatter:off -->
+        <!-- Rings -->
+        <svg class="absolute inset-0 pointer-events-none"
+             viewBox="0 0 960 540" width="100%" height="100%" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+            <g class="text-gray-700 opacity-25" fill="none" stroke="currentColor" stroke-width="100">
+                <circle r="234" cx="196" cy="23"></circle>
+                <circle r="234" cx="790" cy="491"></circle>
+            </g>
+        </svg>
+        <!-- @formatter:on -->
+        <div class="z-10 relative flex flex-col items-center" style="margin-top: 40px;">
+            <h2 class="text-xl font-semibold">Company Dashboard</h2>
+            <div class="mt-1 text-4xl sm:text-7xl font-extrabold tracking-tight leading-tight text-center">
+                {{ data.company_name }}
+            </div>
+            <div class="max-w-2xl mt-6 sm:text-2xl text-center tracking-tight text-secondary">
+                {{ data.website }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+
+<div class="container-fluid p-1" style="margin-top: 10px;">
+    <div *ngIf="quoting=='N'&&data.quotes.length=='0'" class="row">
+        <div class="col-xl-2">
+
+        </div>
+        <div class="col-xl-7">
+            <div style="margin-top: 10px !important;">
+                <button style="margin-bottom: 20px" class="btn btn-primary" (click)="addQuote()" >Start New Quote</button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="quoting=='Y'" class="row">
+        <div class="col-xl-2">
+            &nbsp;
+     </div>
+     <div class="col-md-12 col-xl-6">
+                <form class="flex flex-col mt-7 p-7 pb-7 bg-card rounded-2xl shadow overflow-hidden" autocomplete="off">
+                    <h2 style="font-size: 24px;"><b>Start New Quote</b></h2>
+                    <div class="row p-5">
+                        <div class="col-xl-9">
+                            <mat-form-field
+                            [ngClass]="formFieldHelpers"
+                            class="flex-auto gt-xs:pr-12" style="width: 100%">
+                            <mat-label>Quote Name</mat-label>
+                            <input matInput id="quote_name" name="quote_name" [(ngModel)]="data.quoteData['quote_name']" autocomplete="new-password">
+                            <mat-icon
+                                class="icon-size-5"
+                                matSuffix
+                                [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xl-3">
+                            <mat-form-field
+                            [ngClass]="formFieldHelpers"
+                            class="flex-auto"  style="width: 100%">
+                            <mat-label>Plan Size</mat-label>
+                            <mat-select  id="employee_count" name="employee_count" [(ngModel)]="data.quoteData['employee_count']">
+                                <mat-option value="1-10">1-10</mat-option>
+                                <mat-option value="11+">11+</mat-option>
+                            </mat-select>
+                            <mat-icon
+                                class="icon-size-5"
+                                matPrefix
+                                [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                        </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row p-5">
+                        <div class="col-xl-4">
+                            <mat-form-field
+                            [ngClass]="formFieldHelpers"
+                            class="flex-auto"  style="width: 100%">
+                            <mat-label>Medical</mat-label>
+                            <mat-select  id="medical" name="medical" [(ngModel)]="data.quoteData['medical']">
+                                <mat-option value="Y">Yes</mat-option>
+                                <mat-option value="N">No</mat-option>
+                            </mat-select>
+                            <mat-icon
+                                class="icon-size-5"
+                                matPrefix
+                                [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                        </mat-form-field>
+                        </div>
+                        <div class="col-xl-4">
+                            <mat-form-field
+                            [ngClass]="formFieldHelpers"
+                            class="flex-auto" style="width: 100%">
+                            <mat-label>Dental</mat-label>
+                            <mat-select  id="dental" name="dental" [(ngModel)]="data.quoteData['dental']">
+                                <mat-option value="Y">Yes</mat-option>
+                                <mat-option value="N">No</mat-option>
+                            </mat-select>
+                            <mat-icon
+                                class="icon-size-5"
+                                matPrefix
+                                [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                        </mat-form-field>
+                        </div>
+                        <div class="col-xl-4">
+                            <mat-form-field
+                            [ngClass]="formFieldHelpers"
+                            class="flex-auto"  style="width: 100%">
+                            <mat-label>Vision</mat-label>
+                            <mat-select  id="medical" name="medical" [(ngModel)]="data.quoteData['medical']">
+                                <mat-option value="Y">Yes</mat-option>
+                                <mat-option value="N">No</mat-option>
+                            </mat-select>
+                            <mat-icon
+                                class="icon-size-5"
+                                matPrefix
+                                [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                        </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row  p-5">
+                        <div class="col-xl-12">
+                            <mat-form-field
+                            [ngClass]="formFieldHelpers"
+                            class="fuse-mat-textarea flex-auto" style="width:100%">
+                            <mat-label>Notes</mat-label>
+                            <textarea
+                                matInput
+                                [rows]="4"
+                                matTextareaAutosize
+                                id="notes" name="notes" [(ngModel)]="data.quoteData['notes']"  autocomplete="new-password"></textarea>
+                            <mat-icon
+                                class="icon-size-5"
+                                matSuffix
+                                [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                        </mat-form-field>
+                    </div>
+            </div>
+            <div class="row  p-5">
+                <div class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700">
+                    <button (click)="addQuote()" mat-button>
+                        Cancel
+                    </button>
+                    <button
+                        class="px-6 ml-3"
+                        mat-flat-button
+                        [color]="'primary'" (click)="postQuote()">
+                        Save
+                    </button>
+                </div>
+                </div>
+                </form>
+            </div>
+</div>
+    <div class="row">    <!-- CONTAINER ROW -->
+        <div class="col-xl-2"> &nbsp; </div>
+        <div class="col-xl-10">   <!-- MIDDLE SECTION  -->
+        <div class="row">
+              <div class="col-md-12 col-xl-4">
+                   <div class="card card-body">  
+                      <h2 style="font-size: 24px;"><b>{{ data.company_name }}</b></h2>          
+<div class="table-responsive">
+    <table class="table table-responsive">
+    <thead>
+        <tr>
+            <th>Company ID:</th>
+            <td>{{ data.id }}</td>
+        </tr>
+    </thead>
+    <tbody>
+<!--        <tr>
+            <th>Company Type:</th>
+            <td>{{ data.company_type }}</td>
+        </tr> -->
+ <!--       <tr>
+            <th>Employee Count:</th>
+            <td>{{ data.employee_count }}</td>
+        </tr>
+        <tr>
+            <th>Organization Name:</th>
+            <td>{{ data.org_name }}</td>
+        </tr>
+        <tr>
+            <th>Contact Name:</th>
+            <td>{{ data.first_name }} {{ data.last_name }}</td>
+        </tr> -->
+        <tr>
+            <th>Phone:</th>
+            <td>{{ data.phone_mobile }}</td>
+        </tr>
+<!--        <tr>
+            <th>Website:</th>
+            <td>{{ data.website }}</td>
+        </tr> -->
+        <tr>
+            <th>Address:</th>
+            <td>{{ data.address }}</td>
+        </tr>
+        <tr>
+            <th>City:</th>
+            <td>{{ data.city }}</td>
+        </tr>
+        <tr>
+            <th>State:</th>
+            <td>{{ data.state }}</td>
+        </tr>
+        <tr>
+            <th>Zip:</th>
+            <td>{{ data.zip }}</td>
+        </tr>
+        <tr>
+            <th>Status:</th>
+            <td>{{ data.status }}</td>
+        </tr>
+        <tr *ngIf="data.quotes.length!='0'">
+            <th>Quote ID</th>
+            <td>{{ data.quotes[0].quote_key }}</td>
+        </tr>
+        <tr *ngIf="data.quotes.length!='0'">
+            <th>Medical:</th><td>{{ data.quotes[0].medical }}</td></tr>
+        <tr *ngIf="data.quotes.length!='0'">
+            <th>Dental:</th><td>{{ data.quotes[0].dental }}</td></tr>
+        <tr *ngIf="data.quotes.length!='0'">
+            <th>Vision:</th><td>{{ data.quotes[0].vision }}</td></tr>
+        <tr *ngIf="data.quotes.length!='0'">
+            <th>Status:</th><td>{{ data.quotes[0].status }}</td></tr>
+        <tr *ngIf="data.quotes.length!='0'">
+            <th>Notes:</th><td>{{ data.quotes[0].notes }}</td></tr>
+    </tbody>
+</table>
+</div>
+            </div>
+        </div>
+        <div class="col-md-12 col-xl-4">
+            <div class="card card-body">            
+                <div class="row">
+                    <h2 style="font-size: 24px;"><b>Document Checklist</b></h2>
+                <div class="table table-striped table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Document</th>
+                            <th>Status</th>
+                        </tr>        
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Employee Census</td>
+                            <td>N</td>
+                        </tr>  
+                        <tr>
+                            <td>Current Plan</td>
+                            <td>N</td>
+                        </tr>  
+                        <tr>
+                            <td>Current Invoice</td>
+                            <td>N</td>
+                        </tr> 
+                        <tr>
+                            <td>IHQ Report</td>
+                            <td>N</td>
+                        </tr> 
+                    </tbody>
+                </div>
+                </div>
+            </div>
+        <div style="margin-top:20px" class="card card-body">            
+            <div class="row">
+                <h2 style="font-size: 24px;"><b>Documents</b></h2>
+            <div class="table table-responsive" *ngFor="let m of data.docs">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>{{ m.doc_title }}</th>
+                    </tr>        
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Timestamp</th>
+                        <td>{{ m.create_timestamp }}</td>
+                    </tr>   
+                    <tr>
+                        <th>Note</th>
+                        <td>{{ m.dsc }}</td>
+                    </tr> 
+                    <tr>
+                        <th></th>
+                        <th><button class="btn btn-warning" (click)="showDoc(m.key)">View</button></th>
+                    </tr> 
+                </tbody>
+            </div>
+            </div>
+            <div *ngIf="uploading=='N'" class="row">
+                <div class="col-12">
+                    <button class="btn btn-primary" (click)="showUpload()">Upload Documents</button>
+                </div>
+            </div>
+            <div *ngIf="uploading=='Y'"  class="card card-body">
+                <h2 style="font-size: 24px;"><b>Select File to Upload</b></h2>
+                <div class="row">
+                    <div class="col-xl-4"> &nbsp; </div>            
+                </div>
+                <div class="row">
+                    <div class="col-xl-4">Document Type</div>
+                    <div class="col-xl-8">
+                    <select class="form-control" [(ngModel)]="doc_title" name="doc_title" id="doc_title">
+                        <option class="form-control" value="Employee Census">Employee Census</option>
+                        <option class="form-control" value="Current Plan">Current Plan</option>
+                        <option class="form-control" value="Current Invoice">Current Invoice</option>
+                        <option class="form-control" value="Renewal">Renewal</option>  
+                        <option class="form-control" value="IHQ Report">IHQ Report</option>
+                        <option class="form-control" value="Other">Other</option>                      
+                    </select> 
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4">Note/Description</div>
+                    <div class="col-xl-8">
+                    <input type="text" class="form-control" [(ngModel)]="dsc" name="dsc" id="dsc">
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4"> &nbsp; </div>            
+                </div>
+                <div class="mc">
+                    <input [formControl]="file" (change)="fileChange(index,$event)" type="file" placeholder="File">
+                    <br>
+                    <button style="margin-top:20px" (click)="showUpload()" mat-raised-button color="default">
+                        Cancel
+                    </button>
+                    <button style="margin-top:20px; margin-left:20px;" (click)="uploadFile()" mat-raised-button color="primary">
+                        Upload
+                    </button>
+                </div>
+                </div>
+        
+        </div>
+
+
+</div>        
+<div class="col-md-12 col-xl-4">  
+            <div *ngIf="data.quotes.length>0" class="card card-body">            
+                <div class="row">
+                    <h2 style="font-size: 24px;"><b>Quoted Plans</b></h2>
+                <div class="table table-responsive" *ngFor="let m of data.quotes[0]['plans']">
+                    <thead style="background-color:lightcyan;">
+                        <tr>
+                            <th>Plan Name</th>
+                            <th>{{ m.name }}</th>
+                        </tr>        
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Employee</th>
+                            <td>{{ m.employee }}</td>
+                        </tr>   
+                        <tr>
+                            <th>Employee & Spouse</th>
+                            <td>{{ m.employee_spouse }}</td>
+                        </tr> 
+                        <tr>
+                            <th>Employee & Children</th>
+                            <td>{{ m.employee_children }}</td>
+                        </tr> 
+                        <tr>
+                            <th>Full Family</th>
+                            <td>{{ m.family }}</td>
+                        </tr> 
+                        <tr>
+                            <th></th>
+                            <th><button class="btn btn-danger" (click)="showDoc(m.key)">Accept Plan</button></th>
+                        </tr> 
+                    </tbody>
+                </div>
+                </div>
+            </div> 
+    </div>
+    </div> <!-- ROW -->
+    </div>
+    <div class="col-xl-2">
+
+    </div>
+<div class="col-xl-3">
+
+
+
+</div>
+
+
+    </div>  <!-- END CONTAINER ROW 114-->
+
+<div *ngIf="adding=='Y'" class="row">
+        <div class="col-xl-2">
+            &nbsp;
+     </div>
+     <div class="col-md-12 col-xl-10">
+        <div class="card card-body" style="margin-top:20px;">
+            <div>
+                <h2 style="font-size: 24px;">Add Covered Employee/Dependent</h2>
+                <form>
+                    <div class="row p-5">
+                        <div class="col-xl-3">
+                        <label>Employee or Dependent</label>
+                        <div class="form-control">
+                            <select id="dependent" name="dependent" [(ngModel)]="data.employeeData['dependent']">
+                                <option value="N">Employee</option>
+                                <option value="Y">Dependent</option>
+                           </select>
+                        </div>
+                        </div>
+                        <div *ngIf="data.employeeData['dependent']=='Y'" class="col-xl-3">
+                            <label>Insured</label>
+                            <div class="form-control">
+                                <select id="employee_id" name="employee_id" [(ngModel)]="data.employeeData['employee_id']">
+                                    <option *ngFor="let m of data.employees" value="{{ m.id }}">{{ m.last_name }}, {{ m.first_name }}</option>
+                               </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-5">
+                        <div class="col-xl-3">
+                        <label>First Name</label>
+                        <div class="form-control">
+                            <input  type="text" id="first_name" name="first_name" [(ngModel)]="data.employeeData['first_name']">
+                        </div>
+                        </div>
+                        <div class="col-xl-3">
+                            <label>Middle Name</label>
+                            <div class="form-control">
+                                <input  type="text" id="middle_name" name="middle_name" [(ngModel)]="data.employeeData['middle_name']">
+                            </div>
+                        </div>
+                        <div class="col-xl-3">
+                                <label>Last Name</label>
+                                <div class="form-control">
+                                    <input  type="text" id="last_name" name="last_name" [(ngModel)]="data.employeeData['last_name']">
+                                </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row  p-5">
+                    <div class="col-xl-3">
+                        <label>Date of Birth (MM/DD/YYYY)</label>
+                        <div class="form-control">
+                            <input  type="text" id="date_of_birth" name="date_of_birth" [(ngModel)]="data.employeeData['date_of_birth']">
+                        </div>
+                </div>
+                <div class="col-xl-3">
+                    <label>Gender</label>
+                    <div class="form-control">
+                        <select id="gender" name="gender" [(ngModel)]="data.employeeData['gender']">
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                       </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row  p-5">
+                    <div class="col-xl-3  p-5">
+                        <button mat-button (click)="addEmployee()">
+                            Cancel
+                        </button>
+                        <button
+                            class="px-6 ml-3"
+                            mat-flat-button
+                            [color]="'primary'" (click)="postEmployee()">
+                            Save
+                        </button>               
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+</div>
+</div>
+<div class="row">
+    <div class="col-xl-2">
+        &nbsp;
+ </div>
+ <div *ngIf="data.quotes.length>0" class="col-md-12 col-xl-10">
+    <div class="card card-body" style="margin-top:20px;">
+        <div class="table-responsive">
+            <h2 style="font-size: 24px;"><b>Pre-Enrollment Census</b>
+            <button *ngIf="adding=='N'" (click)="addEmployee()" class="btn btn-primary" style="margin-left: 50px;">Add Employee</button>
+            </h2>
+        <div class="col-lg-6 py-2">
+            Search: <input style="max-width:320px;" class="form-control" type="text" id="term" name="term" [(ngModel)]="term"> 
+        </div>
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <th>
+                        Employee ID<br>Dependent
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Gender
+                    </th>
+                    <th>
+                        DOB
+                    </th>
+                    <th>            
+                    </th>
+                    <th>            
+                    </th>
+                    <th>            
+                    </th>
+                </tr>
+            </thead>
+                    <tbody>
+    <tr *ngFor="let m of data.employees | filter: term ">
+        <td>
+            {{ m.employee_code }}<br>{{ m.dependent_code }}
+        </td>
+        <td>
+            {{ m.last_name }},<br>{{ m.first_name }}
+        </td>
+        <td>
+            {{ m.gender }}
+        </td>
+        <td>
+            {{ m.dob }}
+        </td>
+        <td colspan="3" *ngIf="m.term=='Y'">
+            Term Dt: <select id="term{{m.id}}" name="term{{m.id}}" [(ngModel)]="data['moveData']['term_dt']" class="form-control">
+                 <option *ngFor="let n of data.term_dates" value="{{ n.term_dt }}">{{ n.term_dt }}</option>
+            </select>
+        </td>
+        <td *ngIf="m.term=='N'">
+            {{ m.coverage_price }}
+        </td>
+        <td *ngIf="m.term=='N'">
+            <button  *ngIf="m.last_name!=''" [routerLink]="['/employee-dashboard',m.employee_id]" class="btn btn-warning">View</button>
+        </td>
+        <td  *ngIf="m.term=='N'">
+            <button (click)="showTerm(m)" class="btn btn-danger">Term</button>
+        </td>
+        <td>
+            <button *ngIf="m.term=='N'" (click)="priceFix(m.id)" class="btn btn-danger">Price Fix</button>
+            <button *ngIf="m.term=='Y'" (click)="postTerm(m.id)" class="btn btn-primary">Save</button>
+        </td>
+    </tr>
+</tbody>
+</table>
+</div> <!-- table responsive -->
+</div> <!-- Card body -->
+</div> <!-- Col -->
+</div>
+</div>   <!-- CONTAINER -->
+
+
+
+
+</div>

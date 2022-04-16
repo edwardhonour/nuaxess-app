@@ -1,0 +1,471 @@
+<!-- Loading bar -->
+<fuse-loading-bar></fuse-loading-bar>
+<!-- Navigation -->
+<fuse-vertical-navigation
+    class="dark bg-gray-900 print:hidden"
+    [mode]="isScreenSmall ? 'over' : 'side'"
+    [name]="'mainNavigation'"
+    [navigation]="navigation.default"
+    [opened]="!isScreenSmall">
+    <!-- Navigation header hook -->
+    <ng-container fuseVerticalNavigationContentHeader>
+        <div class="flex items-center w-full p-4 pl-6">
+            <!-- Logo -->
+            <div class="flex items-center justify-center">
+                <img
+                    class="w-8"
+                    src="assets/images/logo/logo.png">
+            </div>
+            <!-- Components -->
+            <div class="flex items-center ml-auto">
+                <notifications></notifications>
+                <user [showAvatar]="false"></user>
+            </div>
+        </div>
+        <!-- User -->
+        <div class="flex flex-col items-center w-full p-4">
+            <div class="relative w-24 h-24">
+                <img
+                    class="w-full h-full rounded-full"
+                    *ngIf="user.avatar"
+                    [src]="user.avatar"
+                    alt="User avatar">
+                <mat-icon
+                    class="icon-size-24"
+                    *ngIf="!user.avatar"
+                    [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+            </div>
+            <div class="flex flex-col items-center justify-center w-full mt-6">
+                <div class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden text-center leading-normal font-medium">
+                    {{user.name}}
+                </div>
+                <div class="w-full mt-0.5 whitespace-nowrap overflow-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary">
+                    {{user.email}}
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <!-- Navigation footer hook -->
+    <ng-container fuseVerticalNavigationContentFooter>
+        <div class="flex flex-0 items-center justify-center h-16 pr-6 pl-2 mt-2 mb-4 opacity-12">
+            <img
+                class="max-w-36"
+                src="assets/images/logo/logo-text-on-dark.png">
+        </div>
+    </ng-container>
+</fuse-vertical-navigation>
+
+<div
+    class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto"
+    cdkScrollable>
+<!--- THIS IS MOVED INSIDE THE MAIN SECTION AFTER THE FIRST LINE -->
+<div class="relative flex flex-0 items-center w-full h-16 px-4 md:px-6 z-49 shadow dark:shadow-none dark:border-b bg-card dark:bg-transparent print:hidden">
+    <!-- Navigation toggle button -->
+    <button
+        mat-icon-button
+        (click)="toggleNavigation('mainNavigation')">
+        <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
+    </button>
+    <!-- Components -->
+    <div class="flex items-center pl-2 ml-auto space-x-0.5 sm:space-x-2">
+        <languages></languages>
+        <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
+        <search [appearance]="'bar'"></search>
+        <shortcuts></shortcuts>
+        <messages></messages>
+    </div>
+</div>
+    <!-- Header -->
+    <div class="relative flex-0 py-8 px-4 sm:p-16 overflow-hidden bg-gray-800 dark"  style="padding-bottom: 20px !important; padding-top: 20px !important;">
+        <!-- Background - @formatter:off -->
+        <!-- Rings -->
+        <svg class="absolute inset-0 pointer-events-none"
+             viewBox="0 0 960 540" width="100%" height="100%" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+            <g class="text-gray-700 opacity-25" fill="none" stroke="currentColor" stroke-width="100">
+                <circle r="234" cx="196" cy="23"></circle>
+                <circle r="234" cx="790" cy="491"></circle>
+            </g>
+        </svg>
+        <!-- @formatter:on -->
+        <div class="z-10 relative flex flex-col items-center" style="margin-top: 40px;">
+            <h2 class="text-xl font-semibold">Invoice Dashboard</h2>
+            <div class="mt-1 text-4xl sm:text-7xl font-extrabold tracking-tight leading-tight text-center">
+                {{ data.company.company_name }}
+            </div>
+            <div class="max-w-2xl mt-6 sm:text-2xl text-center tracking-tight text-secondary">
+                {{ data.formData['invoice_no'] }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+
+<div class="container-fluid p-1" style="margin-top: 10px;">
+    <div class="row">
+        <div class="col-xl-2">
+
+        </div>
+        <div class="col-xl-7">
+&nbsp;
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-2">
+ &nbsp;
+        </div>
+        <div class="col-md-12 col-xl-3">
+            <div class="card card-body">  
+                <h2 style="font-size: 24px;"><b>{{ data.formData['invoice_no'] }}</b></h2>          
+                <div class="table-responsive">
+                    <table class="table table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Invoice Numner:</th>
+                                <td>{{ data.invoice_no }}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Month:</th>
+                                <td>{{ data.month }}</td>
+                            </tr>
+                            <tr>
+                                <th>Year:</th>
+                                <td>{{ data.year }}</td>
+                            </tr>
+                            <tr>
+                                <th>Invoice Date:</th>
+                                <td>{{ data.invoice_date }}</td>
+                            </tr>
+                            <tr>
+                                <th>Due Date:</th>
+                                <td>{{ data.due_date }}</td>
+                            </tr>
+                            <tr>
+                                <th>Medical:</th>
+                                <td>{{ data.medical_total }}</td>
+                            </tr>
+                            <tr>
+                                <th>Dental:</th>
+                                <td>{{ data.dental_total }}</td>
+                            </tr>
+                            <tr>
+                                <th>Vision:</th>
+                                <td>{{ data.vision_total }}</td>
+                            </tr>
+                            <tr>
+                                <th>AD&D:</th>
+                                <td>{{ data.add_total }}</td>
+                            </tr>
+                            <tr>
+                                <th>Life:</th>
+                                <td>{{ data.life_total }}</td>
+                            </tr>
+                            <tr>
+                                <th>Adjustments:</th>
+                                <td>{{ data.adj_total }}</td>
+                            </tr>
+                            <tr>
+                                <th>Grand Total:</th>
+                                <td>{{ data.grand_total }}</td>
+                            </tr>
+                            <tr>
+                                <th>Status:</th>
+                                <td>{{ data.status }}</td>
+                            </tr>
+                            <tr>
+                            <th></th>
+                                <td><button class="btn btn-warning" [routerLink]="['/edit-company',data.id]">Edit Invoice</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>   <!-- TABLE RESPONSIVE -->
+            </div>  <!-- CARD BODY -->
+        </div> <!-- XL-3 -->
+        <div class="col-md-12 col-xl-6">
+            <div class="card card-body">
+                <h2 style="font-size:24px;"><b>APA Members</b></h2>
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th>
+                                ID
+                            </th>
+                            <th>
+                                Employee Name
+                            </th>
+                            <th>
+                                Plan
+                            </th>
+                            <th>
+                                Election
+                            </th>
+                            <th>
+                                Price
+                            </th>
+                            <th>            
+                            </th>
+                        </tr>
+                    </thead>
+                            <tbody>
+            <tr *ngFor="let m of data.apa | filter: term ">
+                <td>
+                    {{ m.id }}
+                </td>
+                <td>
+                    {{ m.last_name }}, {{ m.first_name }}
+                </td>
+                <td>
+                    {{ m.plan }}
+                </td>
+                <td>
+                    {{ m.plan_election }}
+                </td>
+                <td>
+                    {{ m.price }}
+                </td>
+                <td>
+                </td>
+                <td>
+                    <button  *ngIf="data.user['role']=='sadmin'" [routerLink]="['/employee-dashboard',m.employee_id]" class="btn btn-warning">Dashboard</button>
+                </td>
+            </tr>
+        </tbody>
+                </table>
+            </div>
+            <div class="card card-body">
+                <h2 style="font-size:24px;"><b>Invoice Members</b></h2>
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th>
+                                ID
+                            </th>
+                            <th>
+                                Employee Name
+                            </th>
+                            <th>
+                                Plan
+                            </th>
+                            <th>
+                                Election
+                            </th>
+                            <th>            
+                            </th>
+                        </tr>
+                    </thead>
+                            <tbody>
+            <tr *ngFor="let m of data.census | filter: term ">
+                <td>
+                    {{ m.id }}
+                </td>
+                <td>
+                    {{ m.last_name }}, {{ m.first_name }}
+                </td>
+                <td>
+                    {{ m.plan }}
+                </td>
+                <td>
+                    {{ m.plan_election }}
+                </td>
+                <td>
+                    <button  *ngIf="data.user['role']=='sadmin'" [routerLink]="['/employee-dashboard',m.employee_id]" class="btn btn-warning">Dashboard</button>
+                </td>
+            </tr>
+        </tbody>
+                </table>
+            </div>
+            <div class="card card-body">
+                <h2 style="font-size:24px;"><b>NuAxess Members</b></h2>
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th>
+                                ID
+                            </th>
+                            <th>
+                                Employee Name
+                            </th>
+                            <th>
+                                Plan
+                            </th>
+                            <th>
+                                Election
+                            </th>
+                            <th>
+                                Price
+                            </th>
+                            <th>            
+                            </th>
+                        </tr>
+                    </thead>
+                            <tbody>
+            <tr *ngFor="let m of data.nuaxess | filter: term ">
+                <td>
+                    {{ m.id }}
+                </td>
+                <td>
+                    {{ m.last_name }}, {{ m.first_name }}
+                </td>
+                <td>
+                    {{ m.plan }}
+                </td>
+                <td>
+                    {{ m.plan_election }}
+                </td>
+                <td>
+                    {{ m.price }}
+                </td>
+                <td>
+                </td>
+                <td>
+                    <button  *ngIf="data.user['role']=='sadmin'" [routerLink]="['/employee-dashboard',m.employee_id]" class="btn btn-warning">Dashboard</button>
+                </td>
+            </tr>
+        </tbody>
+                </table>
+            </div>
+            <div class="card card-body" *ngIf="adding=='Y'">
+                <div class="table-responsive">
+                    <table class="table table-responsive">
+                        <thead>
+                            <tr>
+                                <th colspan="1">Plan: </th>
+                                <th colspan="3">
+                                    <select  class="form-control" name="plan_id" id="plan_id" [(ngModel)]="data.formData2['plan_id']">
+                                        <option class="form-control" value="1">Platinum III Plan</option>
+                                        <option class="form-control" value="1">Platinum II Plan</option>
+                                        <option class="form-control" value="1">Platinum Plan</option>
+                                        <option class="form-control" value="1">Gold Plan (HSA)</option>
+                                          <option class="form-control" value="1">Gold Plan</option>
+                                          <option class="form-control" value="1">Silver (HSA) Plan</option>
+                                          <option class="form-control" value="1">Silver Plan</option>
+                                          <option class="form-control" value="1">Silver II (HSA) Plan</option>
+                                          <option class="form-control" value="1">Silver II Plan</option>
+                                          <option class="form-control" value="1">Silver III (HSA)</option>
+                                          <option class="form-control" value="1">Silver III</option>
+                                          <option class="form-control" value="1">Bronze 4K (HSA) Plan</option>
+                                          <option class="form-control" value="1">Bronze 4K Plan</option>
+                                          <option class="form-control" value="1">Bronze (HSA) Plan</option>
+                                          <option class="form-control" value="1">Bronze Plan</option>
+                                          <option class="form-control" value="1">Gold (HSA) Plan</option>
+                                          <option class="form-control" value="1">Gold Plan</option>
+                                          <option class="form-control" value="1">Dental</option>
+                                          <option class="form-control" value="1">Vision</option>
+                                    </select>
+                                </th>
+                            </tr>                          
+                            <tr>
+                                <th>Election</th>
+                                <th>Rate</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>  
+                        <tbody>
+                            <tr>
+                                <td>EE</td>
+                                <td><input class="form-control" type="text" id="ee_price" name="ee_price" [(ngModel)]="data.formData2['ee_price']"></td>
+                                <td><input class="form-control" type="text" id="ee_qty" name="ee_qty" [(ngModel)]="data.formData2['ee_qty']"></td>
+                                <td><input  class="form-control" type="text" id="ee_total" name="ee_total" [(ngModel)]="data.formData2['ee_total']"></td>
+                            </tr>
+                            <tr>
+                                <td>EE & S</td>
+                                <td><input class="form-control" type="text" id="ees_price" name="ees_price" [(ngModel)]="data.formData2['ees_price']"></td>
+                                <td><input class="form-control" type="text" id="ees_qty" name="ees_qty" [(ngModel)]="data.formData2['ees_qty']"></td>
+                                <td><input class="form-control" type="text" id="ees_total" name="ees_total" [(ngModel)]="data.formData2['ees_total']"></td>
+                            </tr>
+                            <tr>
+                                <td>EE & Children</td>
+                                <td><input  class="form-control" type="text" id="eec_price" name="eec_price" [(ngModel)]="data.formData2['eec_price']"></td>
+                                <td><input  class="form-control" type="text" id="eec_qty" name="eec_qty" [(ngModel)]="data.formData2['eec_qty']"></td>
+                                <td><input  class="form-control" type="text" id="eec_total" name="eec_total" [(ngModel)]="data.formData2['eec_total']"></td>
+                            </tr>
+                            <tr>
+                                <td>Full Family</td>
+                                <td><input  class="form-control" type="text" id="fam_price" name="fam_price" [(ngModel)]="data.formData2['fam_price']"></td>
+                                <td><input  class="form-control" type="text" id="fam_qty" name="fam_qty" [(ngModel)]="data.formData2['fam_qty']"></td>
+                                <td><input  class="form-control" type="text" id="fam_total" name="fam_total" [(ngModel)]="data.formData2['fam_total']"></td>
+                            </tr>
+                            <tr>
+                                <td>Adjustments</td>
+                                <td><input  class="form-control" type="text" id="adj_price" name="adj_price" [(ngModel)]="data.formData2['adj_price']"></td>
+                                <td><input  class="form-control" type="text" id="adj_qty" name="adj_qty" [(ngModel)]="data.formData2['adj_qty']"></td>
+                                <td><input  class="form-control" type="text" id="adj_total" name="adj_total" [(ngModel)]="data.formData2['adj_total']"></td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td></td>
+                                <td></td>
+                                <td><input  class="form-control" type="text" id="total" name="total" [(ngModel)]="data.formData2['total']"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td><button (click)="postPlan()" class="btn btn-primary">Save</button></td>
+                                <td><button (click)="showPlan()" class="btn">Cancel</button></td>
+                            </tr>
+                        </tbody>
+                </table>
+        </div> 
+            </div>
+            <div class="card card-body">
+                <h2 *ngIf="adding=='N'" style="font-size: 24px;"><button style="margin-right: 20px;" (click)="addPlan()" class="btn btn-primary">Enter Plan</button><b>Plans</b></h2>
+                    <div class="table-responsive">
+                        <table class="table table-responsive" *ngFor="let m of data.detail">
+                            <thead>
+                                <tr>
+                                    <th colspan="4">{{ m.plan_name }}</th>
+                                </tr>                          
+                                <tr>
+                                    <th>Election</th>
+                                    <th>Rate</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>  
+                            <tbody>
+                                <tr>
+                                    <td>EE</td>
+                                    <td>{{ m.ee_price }}</td>
+                                    <td>{{ m.ee_qty }}</td>
+                                    <td>{{ m.ee_total }}</td>
+                                </tr>
+                                <tr>
+                                    <td>EE & S</td>
+                                    <td>{{ m.ees_price }}</td>
+                                    <td>{{ m.ees_qty }}</td>
+                                    <td>{{ m.ees_total }}</td>
+                                </tr>
+                                <tr>
+                                    <td>EE & Children</td>
+                                    <td>{{ m.eec_price }}</td>
+                                    <td>{{ m.eec_qty }}</td>
+                                    <td>{{ m.eec_total }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Full Family</td>
+                                    <td>{{ m.fam_price }}</td>
+                                    <td>{{ m.fam_qty }}</td>
+                                    <td>{{ m.fam_total }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Adjustments</td>
+                                    <td>{{ m.adj_price }}</td>
+                                    <td>{{ m.adj_qty }}</td>
+                                    <td>{{ m.adj_total }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Total</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>{{ m.total }}</td>
+                                </tr>
+                            </tbody>
+                    </table>
+            </div> <!-- TABLE RESPONSIVE -->
+    </div>  <!-- CARD BODY -->
+    </div>  <!-- COL -->
+    </div> <!-- ROW -->
+</div> <!-- CONTAINER -->
+

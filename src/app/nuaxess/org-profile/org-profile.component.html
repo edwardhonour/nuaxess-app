@@ -1,0 +1,243 @@
+<!-- Loading bar -->
+<fuse-loading-bar></fuse-loading-bar>
+<!-- Navigation -->
+<fuse-vertical-navigation
+    class="dark bg-gray-900 print:hidden"
+    [mode]="isScreenSmall ? 'over' : 'side'"
+    [name]="'mainNavigation'"
+    [navigation]="navigation.default"
+    [opened]="!isScreenSmall">
+    <!-- Navigation header hook -->
+    <ng-container fuseVerticalNavigationContentHeader>
+        <div class="flex items-center w-full p-4 pl-6">
+            <!-- Logo -->
+            <div class="flex items-center justify-center">
+                <img
+                    class="w-8"
+                    src="assets/images/logo/logo.png">
+            </div>
+            <!-- Components -->
+            <div class="flex items-center ml-auto">
+                <notifications></notifications>
+                <user [showAvatar]="false"></user>
+            </div>
+        </div>
+        <!-- User -->
+        <div class="flex flex-col items-center w-full p-4">
+            <div class="relative w-24 h-24">
+                <img
+                    class="w-full h-full rounded-full"
+                    *ngIf="user.avatar"
+                    [src]="user.avatar"
+                    alt="User avatar">
+                <mat-icon
+                    class="icon-size-24"
+                    *ngIf="!user.avatar"
+                    [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+            </div>
+            <div class="flex flex-col items-center justify-center w-full mt-6">
+                <div class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden text-center leading-normal font-medium">
+                    {{user.name}}
+                </div>
+                <div class="w-full mt-0.5 whitespace-nowrap overflow-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary">
+                    {{user.email}}
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <!-- Navigation footer hook -->
+    <ng-container fuseVerticalNavigationContentFooter>
+        <div class="flex flex-0 items-center justify-center h-16 pr-6 pl-2 mt-2 mb-4 opacity-12">
+            <img
+                class="max-w-36"
+                src="assets/images/logo/logo-text-on-dark.png">
+        </div>
+    </ng-container>
+</fuse-vertical-navigation>
+
+<div
+    class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto"
+    cdkScrollable>
+<!--- THIS IS MOVED INSIDE THE MAIN SECTION AFTER THE FIRST LINE -->
+<div class="relative flex flex-0 items-center w-full h-16 px-4 md:px-6 z-49 shadow dark:shadow-none dark:border-b bg-card dark:bg-transparent print:hidden">
+    <!-- Navigation toggle button -->
+    <button
+        mat-icon-button
+        (click)="toggleNavigation('mainNavigation')">
+        <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
+    </button>
+    <!-- Components -->
+    <div class="flex items-center pl-2 ml-auto space-x-0.5 sm:space-x-2">
+        <languages></languages>
+        <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
+        <search [appearance]="'bar'"></search>
+        <shortcuts></shortcuts>
+        <messages></messages>
+    </div>
+</div>
+    <!-- Header -->
+    <div class="relative flex-0 py-8 px-4 sm:p-16 overflow-hidden bg-gray-800 dark"  style="padding-bottom: 20px !important; padding-top: 20px !important;">
+        <!-- Background - @formatter:off -->
+        <!-- Rings -->
+        <svg class="absolute inset-0 pointer-events-none"
+             viewBox="0 0 960 540" width="100%" height="100%" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+            <g class="text-gray-700 opacity-25" fill="none" stroke="currentColor" stroke-width="100">
+                <circle r="234" cx="196" cy="23"></circle>
+                <circle r="234" cx="790" cy="491"></circle>
+            </g>
+        </svg>
+        <!-- @formatter:on -->
+        <div class="z-10 relative flex flex-col items-center" style="margin-top: 40px;">
+            <h2 class="text-xl font-semibold">Organization Profile</h2>
+            <div class="mt-1 text-4xl sm:text-7xl font-extrabold tracking-tight leading-tight text-center">
+                {{ data.org_name }}
+            </div>
+            <div class="max-w-2xl mt-6 sm:text-2xl text-center tracking-tight text-secondary">
+                {{ data.user['email'] }} - {{ data.user['phone_mobile'] }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+
+<div class="container-fluid p-5" style="margin-top: 30px;">
+    <div class="row">
+        <div class="col-xl-2">
+            
+        </div>
+        <div class="col-md-12 col-xl-5">
+            <div class="card card-body">            
+                <div class="row">
+                    <div class="col-12" style="margin-bottom: 20px;">
+                         <button mat-button [routerLink]="['/sadmin']">Go Back</button>
+                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                </div>
+                </div>
+            <div class="row">
+                <div class="table table-responsive">
+                    <thead>
+                
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th></th>
+                            <th>Organization Profile</th>
+                        </tr>
+                        <tr>
+                            <th>ID:</th>
+                            <td>{{ data.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Organization Name:</th>
+                            <td *ngIf="editing=='N'">{{ data.org_name }}</td>
+                            <td *ngIf="editing=='Y'"><input class="form-control" [(ngModel)]="data.formData['org_name']" name="org_name" id="org_name"></td>
+                        </tr>
+                        <tr>
+                            <th>Last Name:</th>
+                            <td *ngIf="editing=='N'">{{ data.last_name }}</td>
+                            <td *ngIf="editing=='Y'"><input class="form-control" [(ngModel)]="data.formData['last_name']" name="last_name" id="last_name"></td>
+                        </tr>
+                        <tr>
+                            <th>First Name:</th>
+                            <td *ngIf="editing=='N'">{{ data.first_name }}</td>
+                            <td *ngIf="editing=='Y'"><input class="form-control" [(ngModel)]="data.formData['first_name']" name="first_name" id="first_name"></td>
+                        </tr>
+                        <tr>
+                            <th>Middle Initial:</th>
+                            <td *ngIf="editing=='N'">{{ data.middle_initial }}</td>
+                            <td *ngIf="editing=='Y'"><input class="form-control" [(ngModel)]="data.formData['middle_initial']" name="middle_initial" id="middle_initial"></td>
+                        </tr>
+                        <tr>
+                            <th>Email:</th>
+                            <td *ngIf="editing=='N'">{{ data.email }}</td>
+                            <td *ngIf="editing=='Y'"><input disabled class="form-control" [(ngModel)]="data.formData['email']" name="email" id="email"></td>
+                        </tr>
+                        <tr>
+                            <th>Notification Email:</th>
+                            <td *ngIf="editing=='N'">{{ data.notification_email }}</td>
+                            <td *ngIf="editing=='Y'"><input class="form-control" [(ngModel)]="data.formData['notification_email']" name="notification_email" id="notification_email"></td>
+                        </tr>
+                        <tr>
+                            <th>Work Phone:</th>
+                            <td *ngIf="editing=='N'">{{ data.work_phone }}</td>
+                            <td *ngIf="editing=='Y'"><input class="form-control" [(ngModel)]="data.formData['work_phone']" name="work_phone" id="work_phone"></td>
+                        </tr>
+                        <tr>
+                            <th>Mobile Phone:</th>
+                            <td *ngIf="editing=='N'">{{ data.phone_mobile }}</td>
+                            <td *ngIf="editing=='Y'"><input class="form-control" [(ngModel)]="data.formData['phone_mobile']" name="phone_mobile" id="phone_mobile"></td>
+                        </tr>
+                        <tr>
+                            <th>Address:</th>
+                            <td *ngIf="editing=='N'">{{ data.address }}</td>
+                            <td *ngIf="editing=='Y'"><input class="form-control" [(ngModel)]="data.formData['address']" name="address" id="address"></td>
+                        </tr>
+                        <tr>
+                            <th>City:</th>
+                            <td *ngIf="editing=='N'">{{ data.city }}</td>
+                            <td *ngIf="editing=='Y'"><input class="form-control" [(ngModel)]="data.formData['city']" name="city" id="city"></td>
+                        </tr>
+                        <tr>
+                            <th>State:</th>
+                            <td *ngIf="editing=='N'">{{ data.state }}</td>
+                            <td *ngIf="editing=='Y'"><input class="form-control" [(ngModel)]="data.formData['state']" name="state" id="state"></td>
+                        </tr>
+                        <tr>
+                            <th>Zip:</th>
+                            <td *ngIf="editing=='N'">{{ data.zip }}</td>
+                            <td *ngIf="editing=='Y'"><input class="form-control" [(ngModel)]="data.formData['zip']" name="zip" id="zip"></td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td *ngIf="editing=='N'"><button class="btn btn-primary" (click)="showEdit()">Edit</button></td>
+                            <td *ngIf="editing=='Y'"><button class="btn btn-primary" (click)="postForm()">Save Changes</button><button class="btn" (click)="showEdit()">Cancel</button></td>
+                        </tr>
+                    </tbody>
+                </div>
+            </div>
+                                </div>
+        </div>
+        <div class="col-md-12 col-xl-5">
+            <div class="row">
+                <div *ngIf="uploading=='N'" class="row">
+                    <div class="col-12">
+                        <button class="btn btn-primary" (click)="showUpload()">Upload Logo</button>
+                    </div>
+                </div>
+                <div *ngIf="uploading=='Y'"  class="card card-body">
+                    <h2 style="font-size: 24px;"><b>Select Images to Upload</b></h2>
+                    <div class="row">
+                        <div class="col-xl-4"> &nbsp; </div>            
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-4"> &nbsp; </div>            
+                    </div>
+                    <div class="mc">
+                        <input [formControl]="file" (change)="fileChange(index,$event)" type="file" placeholder="File">
+                        <br>
+                        <button style="margin-top:20px" (click)="showUpload()" mat-raised-button color="default">
+                            Cancel
+                        </button>
+                        <button style="margin-top:20px; margin-left:20px;" (click)="uploadFile()" mat-raised-button color="primary">
+                            Upload
+                        </button>
+                    </div>
+                    </div>
+            </div>
+            <div class="row">
+                <div *ngIf="data.avatar!=''" class="col-xl-6">
+                    <img src="{{ data.avatar }}">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

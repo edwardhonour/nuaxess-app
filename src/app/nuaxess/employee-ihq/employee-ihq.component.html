@@ -1,0 +1,1245 @@
+<!-- Loading bar -->
+<fuse-loading-bar></fuse-loading-bar>
+<!-- Navigation -->
+<fuse-vertical-navigation
+    class="dark bg-gray-900 print:hidden"
+    [mode]="isScreenSmall ? 'over' : 'side'"
+    [name]="'mainNavigation'"
+    [navigation]="navigation.default"
+    [opened]="!isScreenSmall">
+    <!-- Navigation header hook -->
+    <ng-container fuseVerticalNavigationContentHeader>
+        <div class="flex items-center w-full p-4 pl-6">
+            <!-- Logo -->
+            <div class="flex items-center justify-center">
+                <img
+                    class="w-8"
+                    src="assets/images/logo/logo.png">
+            </div>
+            <!-- Components -->
+            <div class="flex items-center ml-auto">
+                <notifications></notifications>
+                <user [showAvatar]="false"></user>
+            </div>
+        </div>
+        <!-- User -->
+        <div class="flex flex-col items-center w-full p-4">
+            <div class="relative w-24 h-24">
+                <img
+                    class="w-full h-full rounded-full"
+                    *ngIf="user.avatar"
+                    [src]="user.avatar"
+                    alt="User avatar">
+                <mat-icon
+                    class="icon-size-24"
+                    *ngIf="!user.avatar"
+                    [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+            </div>
+            <div class="flex flex-col items-center justify-center w-full mt-6">
+                <div class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden text-center leading-normal font-medium">
+                    {{user.name}}
+                </div>
+                <div class="w-full mt-0.5 whitespace-nowrap overflow-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary">
+                    {{user.email}}
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <!-- Navigation footer hook -->
+    <ng-container fuseVerticalNavigationContentFooter>
+        <div class="flex flex-0 items-center justify-center h-16 pr-6 pl-2 mt-2 mb-4 opacity-12">
+            <img
+                class="max-w-36"
+                src="assets/images/logo/logo-text-on-dark.png">
+        </div>
+    </ng-container>
+</fuse-vertical-navigation>
+
+<div
+    class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto"
+    cdkScrollable>
+<!--- THIS IS MOVED INSIDE THE MAIN SECTION AFTER THE FIRST LINE -->
+<div class="relative flex flex-0 items-center w-full h-16 px-4 md:px-6 z-49 shadow dark:shadow-none dark:border-b bg-card dark:bg-transparent print:hidden">
+    <!-- Navigation toggle button -->
+    <button
+        mat-icon-button
+        (click)="toggleNavigation('mainNavigation')">
+        <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
+    </button>
+    <!-- Components -->
+    <div class="flex items-center pl-2 ml-auto space-x-0.5 sm:space-x-2">
+        <languages></languages>
+        <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
+        <search [appearance]="'bar'"></search>
+        <shortcuts></shortcuts>
+        <messages></messages>
+    </div>
+</div>
+    <!-- Header -->
+    <div class="relative flex-0 py-8 px-4 sm:p-16 overflow-hidden bg-gray-800 dark"  style="padding-bottom: 20px !important; padding-top: 20px !important;">
+        <!-- Background - @formatter:off -->
+        <!-- Rings -->
+        <svg class="absolute inset-0 pointer-events-none"
+             viewBox="0 0 960 540" width="100%" height="100%" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+            <g class="text-gray-700 opacity-25" fill="none" stroke="currentColor" stroke-width="100">
+                <circle r="234" cx="196" cy="23"></circle>
+                <circle r="234" cx="790" cy="491"></circle>
+            </g>
+        </svg>
+        <!-- @formatter:on -->
+        <div class="z-10 relative flex flex-col items-center" style="margin-top: 40px;">
+            <h2 class="text-xl font-semibold">Employee Dashboard</h2>
+            <div class="mt-1 text-4xl sm:text-7xl font-extrabold tracking-tight leading-tight text-center">
+                {{ data.last_name }}, {{ data.first_name }}
+            </div>
+            <div class="max-w-2xl mt-6 sm:text-2xl text-center tracking-tight text-secondary">
+                {{ data.email }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+
+<div class="container-fluid p-1" style="margin-top: 10px;">
+    <div class="row">
+        <div class="col-xl-2">
+
+        </div>
+        <div class="col-xl-7">
+            <div style="margin-top: 10px !important;">
+                <a class="inline-flex items-center leading-6 text-primary hover:underline" [routerLink]="['/sadmin']"><span class="inline-flex items-center"><mat-icon role="img" class="mat-icon notranslate icon-size-5 text-current mat-icon-no-color" aria-hidden="true" data-mat-icon-type="svg" data-mat-icon-name="arrow-sm-left" data-mat-icon-namespace="heroicons_solid"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" fit="" height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false">
+                    <path fill-rule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path>
+                </svg></mat-icon><span class="ml-1.5 font-medium leading-5">Back to Dashboard</span></span></a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-2">
+ &nbsp;
+        </div>
+        <div class="col-md-12 col-xl-5">
+            <div class="card card-body">            
+                <div class="row">
+                    <div class="col-12">
+</div>
+</div>
+            </div>
+<div class="card card-body"  style="margin-top:20px;">
+    <div class="table-responsive">
+        <h2 class="h2" style="font-size: 24px;">Family</h2>
+        <table class="table table-responsive table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        First Name
+                    </th>
+                    <th>
+                        Middle Name
+                    </th>
+                    <th>
+                        Last Name
+                    </th>
+                    <th>
+                        Gender
+                    </th>
+                    <th>
+                        Relationship
+                    </th>
+                    <th>
+                        Date of Birth
+                    </th>
+                    <th>
+    
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr *ngFor="let m of data.family">
+        <td>
+            {{ m.id }}
+        </td>
+        <td>
+            {{ m.first_name }}
+        </td>
+        <td>
+            {{ m.middle_name }}
+        </td>
+        <td>
+            {{ m.last_name }}
+        </td>
+        <td>
+            {{ m.gender }}
+        </td>
+        <td>
+            {{ m.member_type }}
+        </td>
+        <td>
+            {{ m.date_of_birth }}
+        </td>
+        <th>
+            <button [routerLink]="['/active-plan-dashboard',m.id]" class="btn btn-primary">View/Edit</button>
+        </th>
+    </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-primary">Add Family Members</button>
+     </div>
+</div>
+<div class="card card-body" style="margin-top:20px;">            
+
+    <div class="row">
+        <h2 class="h2" style="font-size: 24px;">Medical Questionaire</h2>
+
+<!-- 1 -->
+        <div class="row" style="margin-top: 10px;">
+            <div class="card card-body">
+            <div class="row">
+            <div class="col-xl-7">
+                <span style="font-size:18px;">
+                    (1) Are you or any of your dependent disabled or hospital confined?
+                </span>
+            </div>
+            <div class="col-xl-3">
+                <select id="a1" name="a1" [(ngModel)]="data.formData['a1']" class="form-control">
+                    <option value="">-- Not Answered --</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            </div>
+            <div style="margin-top: 20px; background-color: pink; padding-top: 10px; padding-bottom: 10px;" class="row" *ngIf="data.formData['a1']=='Yes'||data.formData['details1']!=''||data.formData['onset1']!=''">
+                <h2>Please provide details regarding your answer:</h2>
+            </div>
+            <div style="background-color: pink;"class="row" *ngIf="data.formData['a1']=='Yes'||data.formData['details1']!=''||data.formData['onset1']!=''">
+                <div class="col-xl-4">Onset: <input class="form-control" type="text" id="onset1" name="onset1" [(ngModel)]="data.formData['onset1']" > </div>
+                <div class="col-xl-4">Duration: <input class="form-control" type="text" id="duration1" name="duration1" [(ngModel)]="data.formData['duration1']" > </div>
+            </div>
+            <div style="background-color: pink;" class="row" *ngIf="data.formData['a1']=='Yes'||data.formData['details1']!=''||data.formData['onset1']!=''">
+                <div class="col-xl-10">Detals: <textarea rows="3" class="form-control" type="text" id="details1" name="details1" [(ngModel)]="data.formData['details1']" ></textarea> </div>
+             </div>
+             <div style="background-color: pink;" class="row" *ngIf="data.formData['a1']=='Yes'||data.formData['details1']!=''||data.formData['onset1']!=''">
+                <div class="col-xl-10">Outome: <input class="form-control" type="text" id="results1" name="results1" [(ngModel)]="data.formData['results1']" > </div>
+             </div>
+             <div style="background-color: pink;" class="row" *ngIf="data.formData['a1']=='Yes'||data.formData['details1']!=''||data.formData['onset1']!=''">
+                <div class="col-xl-10">Provider: <input class="form-control" type="text" id="results1" name="results1" [(ngModel)]="data.formData['provider1']" > </div>
+             </div>
+             <div style="background-color: pink;" class="row" *ngIf="data.formData['a1']=='Yes'||data.formData['details1']!=''||data.formData['onset1']!=''">
+                <div class="col-xl-10">Family Member: <select class="form-control" 
+                    id="familiy_member1" 
+                    name="family_member1" [(ngModel)]="data.formData['family_member1']" > 
+                    <option value="0">Self</option>
+                    <option *ngFor="let k of data.family">
+                        {{ k.first_name }} {{ k.middle_name }} {{ k.last_name }} 
+                    </option>
+                    </select>
+                </div>
+             </div>
+        </div>
+        </div>
+<!-- 2 -->
+        <div class="row" style="margin-top: 10px;">
+            <div class="card card-body">
+            <div class="row">
+            <div class="col-xl-7">
+                <span style="font-size:18px;">
+                    (2) Have you or any eligible dependent used tobacco products in the past twelve (12) months?
+                </span>
+            </div>
+            <div class="col-xl-3">
+                <select id="a2" name="a2" [(ngModel)]="data.formData['a2']" class="form-control">
+                    <option value="">--</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            </div>
+            <div style="margin-top: 20px; background-color: pink; padding-top: 10px; padding-bottom: 10px;" *ngIf="data.formData['a2']=='Yes'||data.formData['details2']!=''||data.formData['onset2']!=''">
+                <h2>Please provide details regarding your answer:</h2>
+            </div>
+            <div style="background-color: pink;" class="row" *ngIf="data.formData['a2']=='Yes'||data.formData['details2']!=''||data.formData['onset2']!=''">
+                <div class="col-xl-4">Onset: <input class="form-control" type="text" id="onset2" name="onset2" [(ngModel)]="data.formData['onset2']" > </div>
+                <div class="col-xl-4">Duration: <input class="form-control" type="text" id="duration2" name="duration2" [(ngModel)]="data.formData['duration2']" > </div>
+            </div>
+            <div style="background-color: pink;" class="row" *ngIf="data.formData['a2']=='Yes'||data.formData['details2']!=''||data.formData['onset2']!=''">
+                <div class="col-xl-10">Detals: <textarea rows="3" class="form-control" type="text" id="details2" name="details2" [(ngModel)]="data.formData['details2']" ></textarea> </div>
+             </div>
+             <div style="background-color: pink;" class="row" *ngIf="data.formData['a2']=='Yes'||data.formData['details2']!=''||data.formData['onset2']!=''">
+                <div class="col-xl-10">Outome: <input class="form-control" type="text" id="results2" name="results2" [(ngModel)]="data.formData['results2']" > </div>
+             </div>
+             <div style="background-color: pink;" class="row"*ngIf="data.formData['a2']=='Yes'||data.formData['details2']!=''||data.formData['onset2']!=''">
+                <div class="col-xl-10">Provider: <input class="form-control" type="text" id="results2" name="results2" [(ngModel)]="data.formData['provider2']" > </div>
+             </div>
+             <div style="background-color: pink;" class="row" *ngIf="data.formData['a2']=='Yes'||data.formData['details2']!=''||data.formData['onset2']!=''">
+                <div class="col-xl-10">Family Member: <select class="form-control" 
+                    id="familiy_member2" 
+                    name="family_member2" [(ngModel)]="data.formData['family_member2']" > 
+                    <option value="0">Self</option>
+                    <option *ngFor="let k of data.family">
+                        {{ k.first_name }} {{ k.middle_name }} {{ k.last_name }} 
+                    </option>
+                    </select>
+                </div>
+             </div>
+        </div>
+        </div>
+
+<!-- 3 -->
+<div class="row" style="margin-top: 10px;">
+    <div class="card card-body">
+    <div class="row">
+    <div class="col-xl-7">
+        <span style="font-size:18px;">
+            (3) Within the past five (5) years, have you or any eligible dependent consulted any doctors, therapists, counselors, or healthcare providers of any kind, or received any treatment, other than routine checkups or minor illnesses?
+        </span>
+    </div>
+    <div class="col-xl-3">
+        <select id="32" name="a3" [(ngModel)]="data.formData['a3']" class="form-control">
+            <option value="">--</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    </div>
+    <div style="margin-top: 20px; background-color: pink; padding-top: 10px; padding-bottom: 10px;" class="row" *ngIf="data.formData['a3']=='Yes'||data.formData['details3']!=''||data.formData['onset3']!=''">
+        <h2>Please provide details regarding your answer:</h2>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a3']=='Yes'||data.formData['details3']!=''||data.formData['onset3']!=''">
+        <div class="col-xl-4">Onset: <input class="form-control" type="text" id="onset3" name="onset3" [(ngModel)]="data.formData['onset3']" > </div>
+        <div class="col-xl-4">Duration: <input class="form-control" type="text" id="duration3" name="duration3" [(ngModel)]="data.formData['duration3']" > </div>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a3']=='Yes'||data.formData['details3']!=''||data.formData['onset3']!=''">
+        <div class="col-xl-10">Detals: <textarea rows="3" class="form-control" type="text" id="details3" name="details3" [(ngModel)]="data.formData['details3']" ></textarea> </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a3']=='Yes'||data.formData['details3']!=''||data.formData['onset3']!=''">
+        <div class="col-xl-10">Outome: <input class="form-control" type="text" id="results3" name="results3" [(ngModel)]="data.formData['results3']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row"*ngIf="data.formData['a3']=='Yes'||data.formData['details3']!=''||data.formData['onset3']!=''">
+        <div class="col-xl-10">Provider: <input class="form-control" type="text" id="results3" name="results3" [(ngModel)]="data.formData['provider3']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a3']=='Yes'||data.formData['details3']!=''||data.formData['onset3']!=''">
+        <div class="col-xl-10">Family Member: <select class="form-control" 
+            id="familiy_member3" 
+            name="family_member3" [(ngModel)]="data.formData['family_member3']" > 
+            <option value="0">Self</option>
+            <option *ngFor="let k of data.family">
+                {{ k.first_name }} {{ k.middle_name }} {{ k.last_name }} 
+            </option>
+            </select>
+        </div>
+     </div>
+     <div style="background-color: pink;" class="row"*ngIf="data.formData['a3']=='Yes'||data.formData['details3']!=''||data.formData['onset3']!=''">
+        <div class="col-xl-10">&nbsp;</div>
+     </div>
+</div>
+</div>
+
+<!-- 4 -->
+<div class="row" style="margin-top: 10px;">
+    <div class="card card-body">
+    <div class="row">
+    <div class="col-xl-7">
+        <span style="font-size:18px;">
+            (4) Within the past 5 years have you or any eligible dependent had any loss of weight; been in a hospital, sanitarium, or institution for observation of treatment; had electrocardiograms, x-rays, blood studies or other diagnostic test?
+        </span>
+    </div>
+    <div class="col-xl-3">
+        <select id="a4" name="a4" [(ngModel)]="data.formData['a4']" class="form-control">
+            <option value="">--</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    </div>
+    <div style="margin-top: 20px; background-color: pink; padding-top: 10px; padding-bottom: 10px;" class="row" *ngIf="data.formData['a4']=='Yes'||data.formData['details4']!=''||data.formData['onset4']!=''">
+        <h2>Please provide details regarding your answer:</h2>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a4']=='Yes'||data.formData['details4']!=''||data.formData['onset4']!=''">
+        <div class="col-xl-4">Onset: <input class="form-control" type="text" id="onset4" name="onset4" [(ngModel)]="data.formData['onset4']" > </div>
+        <div class="col-xl-4">Duration: <input class="form-control" type="text" id="duration4" name="duration4" [(ngModel)]="data.formData['duration4']" > </div>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a4']=='Yes'||data.formData['details4']!=''||data.formData['onset4']!=''">
+        <div class="col-xl-10">Detals: <textarea rows="3" class="form-control" type="text" id="details4" name="details4" [(ngModel)]="data.formData['details4']" ></textarea> </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a4']=='Yes'||data.formData['details4']!=''||data.formData['onset4']!=''">
+        <div class="col-xl-10">Outome: <input class="form-control" type="text" id="results4" name="results4" [(ngModel)]="data.formData['results4']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row"*ngIf="data.formData['a4']=='Yes'||data.formData['details4']!=''||data.formData['onset4']!=''">
+        <div class="col-xl-10">Provider: <input class="form-control" type="text" id="results4" name="results4" [(ngModel)]="data.formData['provider4']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a4']=='Yes'||data.formData['details4']!=''||data.formData['onset4']!=''">
+        <div class="col-xl-10">Family Member: <select class="form-control" 
+            id="familiy_member4" 
+            name="family_member4" [(ngModel)]="data.formData['family_member4']" > 
+            <option value="0">Self</option>
+            <option *ngFor="let k of data.family">
+                {{ k.first_name }} {{ k.middle_name }} {{ k.last_name }} 
+            </option>
+            </select>
+        </div>
+     </div>
+</div>
+</div>
+
+<!-- 2 -->
+<div class="row" style="margin-top: 10px;">
+    <div class="card card-body">
+    <div class="row">
+    <div class="col-xl-7">
+        <span style="font-size:18px;">
+            (5) Are you or any eligible dependent, receiving treatments, taking medications; receiving follow up care, schedule for or waiting for or awaiting results of any tests, biopsies, procedure of lab work; been advised of a condition that will require attention in the nest twenty-four (24) months?
+        </span>
+    </div>
+    <div class="col-xl-3">
+        <select id="a5" name="a5" [(ngModel)]="data.formData['a5']" class="form-control">
+            <option value="">--</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    </div>
+    <div style="margin-top: 20px; background-color: pink; padding-top: 10px; padding-bottom: 10px;" class="row" *ngIf="data.formData['a5']=='Yes'||data.formData['details5']!=''||data.formData['onset5']!=''">
+        <h2>Please provide details regarding your answer:</h2>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a5']=='Yes'||data.formData['details5']!=''||data.formData['onset5']!=''">
+        <div class="col-xl-4">Onset: <input class="form-control" type="text" id="onset5" name="onset5" [(ngModel)]="data.formData['onset5']" > </div>
+        <div class="col-xl-4">Duration: <input class="form-control" type="text" id="duration5" name="duration5" [(ngModel)]="data.formData['duration5']" > </div>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a5']=='Yes'||data.formData['details5']!=''||data.formData['onset5']!=''">
+        <div class="col-xl-10">Detals: <textarea rows="3" class="form-control" type="text" id="details5" name="details5" [(ngModel)]="data.formData['details5']" ></textarea> </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a5']=='Yes'||data.formData['details5']!=''||data.formData['onset5']!=''">
+        <div class="col-xl-10">Outome: <input class="form-control" type="text" id="results5" name="results5" [(ngModel)]="data.formData['results5']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row"*ngIf="data.formData['a5']=='Yes'||data.formData['details5']!=''||data.formData['onset5']!=''">
+        <div class="col-xl-10">Provider: <input class="form-control" type="text" id="results5" name="results5" [(ngModel)]="data.formData['provider5']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a5']=='Yes'||data.formData['details5']!=''||data.formData['onset5']!=''">
+        <div class="col-xl-10">Family Member: <select class="form-control" 
+            id="familiy_member5" 
+            name="family_member5" [(ngModel)]="data.formData['family_member5']" > 
+            <option value="0">Self</option>
+            <option *ngFor="let k of data.family">
+                {{ k.first_name }} {{ k.middle_name }} {{ k.last_name }} 
+            </option>
+            </select>
+        </div>
+     </div>
+</div>
+</div>
+<!-- 2 -->
+<div class="row" style="margin-top: 10px;">
+    <div class="card card-body">
+    <div class="row">
+    <div class="col-xl-7">
+        <span style="font-size:18px;">
+            (6) Within the last five (5) years, do you or dependent have or have had any chest pains, disease of the heart, arteries or blood vessels; high or low blood pressure; stroke?
+        </span>
+    </div>
+    <div class="col-xl-3">
+        <select id="a6" name="a6" [(ngModel)]="data.formData['a6']" class="form-control">
+            <option value="">--</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    </div>
+    <div style="margin-top: 20px; background-color: pink; padding-top: 10px; padding-bottom: 10px;" class="row" *ngIf="data.formData['a6']=='Yes'||data.formData['details6']!=''||data.formData['onset6']!=''">
+        <h2>Please provide details regarding your answer:</h2>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a6']=='Yes'||data.formData['details6']!=''||data.formData['onset6']!=''">
+        <div class="col-xl-4">Onset: <input class="form-control" type="text" id="onset6" name="onset6" [(ngModel)]="data.formData['onset6']" > </div>
+        <div class="col-xl-4">Duration: <input class="form-control" type="text" id="duration6" name="duration6" [(ngModel)]="data.formData['duration6']" > </div>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a6']=='Yes'||data.formData['details6']!=''||data.formData['onset6']!=''">
+        <div class="col-xl-10">Detals: <textarea rows="3" class="form-control" type="text" id="details6" name="details6" [(ngModel)]="data.formData['details6']" ></textarea> </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a6']=='Yes'||data.formData['details6']!=''||data.formData['onset6']!=''">
+        <div class="col-xl-10">Outome: <input class="form-control" type="text" id="results6" name="results6" [(ngModel)]="data.formData['results6']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row"*ngIf="data.formData['a6']=='Yes'||data.formData['details6']!=''||data.formData['onset6']!=''">
+        <div class="col-xl-10">Provider: <input class="form-control" type="text" id="results6" name="results6" [(ngModel)]="data.formData['provider6']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a6']=='Yes'||data.formData['details6']!=''||data.formData['onset6']!=''">
+        <div class="col-xl-10">Family Member: <select class="form-control" 
+            id="familiy_member6" 
+            name="family_member6" [(ngModel)]="data.formData['family_member6']" > 
+            <option value="0">Self</option>
+            <option *ngFor="let k of data.family">
+                {{ k.first_name }} {{ k.middle_name }} {{ k.last_name }} 
+            </option>
+            </select>
+        </div>
+     </div>
+</div>
+</div>
+
+<!-- 7 -->
+<div class="row" style="margin-top: 10px;">
+    <div class="card card-body">
+    <div class="row">
+    <div class="col-xl-7">
+        <span style="font-size:18px;">
+            (7) Within the last five (5) years, do you or dependent have or have had nervous, mental or emotional disorder; convulsion, epilepsy, unconsciousness?
+        </span>
+    </div>
+    <div class="col-xl-3">
+        <select id="a7" name="a7" [(ngModel)]="data.formData['a7']" class="form-control">
+            <option value="">--</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    </div>
+    <div style="margin-top: 20px; background-color: pink; padding-top: 10px; padding-bottom: 10px;" class="row" *ngIf="data.formData['a7']=='Yes'||data.formData['details7']!=''||data.formData['onset7']!=''">
+        <h2>Please provide details regarding your answer:</h2>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a7']=='Yes'||data.formData['details7']!=''||data.formData['onset7']!=''">
+        <div class="col-xl-4">Onset: <input class="form-control" type="text" id="onset7" name="onset7" [(ngModel)]="data.formData['onset7']" > </div>
+        <div class="col-xl-4">Duration: <input class="form-control" type="text" id="duration7" name="duration7" [(ngModel)]="data.formData['duration7']" > </div>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a7']=='Yes'||data.formData['details7']!=''||data.formData['onset7']!=''">
+        <div class="col-xl-10">Detals: <textarea rows="3" class="form-control" type="text" id="details7" name="details7" [(ngModel)]="data.formData['details7']" ></textarea> </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a7']=='Yes'||data.formData['details7']!=''||data.formData['onset7']!=''">
+        <div class="col-xl-10">Outome: <input class="form-control" type="text" id="results7" name="results7" [(ngModel)]="data.formData['results7']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row"*ngIf="data.formData['a7']=='Yes'||data.formData['details7']!=''||data.formData['onset7']!=''">
+        <div class="col-xl-10">Provider: <input class="form-control" type="text" id="results7" name="results7" [(ngModel)]="data.formData['provider7']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a7']=='Yes'||data.formData['details7']!=''||data.formData['onset7']!=''">
+        <div class="col-xl-10">Family Member: <select class="form-control" 
+            id="familiy_member7" 
+            name="family_member7" [(ngModel)]="data.formData['family_member7']" > 
+            <option value="0">Self</option>
+            <option *ngFor="let k of data.family">
+                {{ k.first_name }} {{ k.middle_name }} {{ k.last_name }} 
+            </option>
+            </select>
+        </div>
+     </div>
+</div>
+</div>
+
+<!-- 8 -->
+<div class="row" style="margin-top: 10px;">
+    <div class="card card-body">
+    <div class="row">
+    <div class="col-xl-7">
+        <span style="font-size:18px;">
+            (8) Within the last five (5) years, do you or dependent have or have had asthma or other disease of lungs or respiratory organs?
+        </span>
+    </div>
+    <div class="col-xl-3">
+        <select id="a8" name="a8" [(ngModel)]="data.formData['a8']" class="form-control">
+            <option value="">--</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    </div>
+    <div style="margin-top: 20px; background-color: pink; padding-top: 10px; padding-bottom: 10px;" class="row" *ngIf="data.formData['a8']=='Yes'||data.formData['details8']!=''||data.formData['onset8']!=''">
+        <h2>Please provide details regarding your answer:</h2>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a8']=='Yes'||data.formData['details8']!=''||data.formData['onset8']!=''">
+        <div class="col-xl-4">Onset: <input class="form-control" type="text" id="onset8" name="onset8" [(ngModel)]="data.formData['onset8']" > </div>
+        <div class="col-xl-4">Duration: <input class="form-control" type="text" id="duration8" name="duration8" [(ngModel)]="data.formData['duration8']" > </div>
+    </div>
+    <div style="background-color: pink;"  class="row" *ngIf="data.formData['a8']=='Yes'||data.formData['details8']!=''||data.formData['onset8']!=''">
+        <div class="col-xl-10">Detals: <textarea rows="3" class="form-control" type="text" id="details8" name="details8" [(ngModel)]="data.formData['details8']" ></textarea> </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a8']=='Yes'||data.formData['details8']!=''||data.formData['onset8']!=''">
+        <div class="col-xl-10">Outome: <input class="form-control" type="text" id="results8" name="results8" [(ngModel)]="data.formData['results8']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row"*ngIf="data.formData['a8']=='Yes'||data.formData['details8']!=''||data.formData['onset8']!=''">
+        <div class="col-xl-10">Provider: <input class="form-control" type="text" id="results8" name="results8" [(ngModel)]="data.formData['provider8']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a8']=='Yes'||data.formData['details8']!=''||data.formData['onset8']!=''">
+        <div class="col-xl-10">Family Member: <select class="form-control" 
+            id="familiy_member8" 
+            name="family_member8" [(ngModel)]="data.formData['family_member8']" > 
+            <option value="0">Self</option>
+            <option *ngFor="let k of data.family">
+                {{ k.first_name }} {{ k.middle_name }} {{ k.last_name }} 
+            </option>
+            </select>
+        </div>
+     </div>
+</div>
+</div>
+
+<!-- 9 -->
+<div class="row" style="margin-top: 10px;">
+    <div class="card card-body">
+    <div class="row">
+    <div class="col-xl-7">
+        <span style="font-size:18px;">
+            (9) Within the last five (5) years, do you or dependent have or have had any kidney stones, disease of the kidney, bladder, male or female organs, infertility?
+        </span>
+    </div>
+    <div class="col-xl-3">
+        <select id="a9" name="a9" [(ngModel)]="data.formData['a9']" class="form-control">
+            <option value="">--</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    </div>
+    <div style="margin-top: 20px; background-color: pink; padding-top: 10px; padding-bottom: 10px;" *ngIf="data.formData['a9']=='Yes'||data.formData['details9']!=''||data.formData['onset9']!=''">
+        <h2>Please provide details regarding your answer:</h2>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a9']=='Yes'||data.formData['details9']!=''||data.formData['onset9']!=''">
+        <div class="col-xl-4">Onset: <input class="form-control" type="text" id="onset9" name="onset9" [(ngModel)]="data.formData['onset9']" > </div>
+        <div class="col-xl-4">Duration: <input class="form-control" type="text" id="duration9" name="duration9" [(ngModel)]="data.formData['duration9']" > </div>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a9']=='Yes'||data.formData['details9']!=''||data.formData['onset9']!=''">
+        <div class="col-xl-10">Detals: <textarea rows="3" class="form-control" type="text" id="details9" name="details9" [(ngModel)]="data.formData['details9']" ></textarea> </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a9']=='Yes'||data.formData['details9']!=''||data.formData['onset9']!=''">
+        <div class="col-xl-10">Outome: <input class="form-control" type="text" id="results9" name="results9" [(ngModel)]="data.formData['results9']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row"*ngIf="data.formData['a9']=='Yes'||data.formData['details9']!=''||data.formData['onset9']!=''">
+        <div class="col-xl-10">Provider: <input class="form-control" type="text" id="results9" name="results9" [(ngModel)]="data.formData['provider9']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a9']=='Yes'||data.formData['details9']!=''||data.formData['onset9']!=''">
+        <div class="col-xl-10">Family Member: <select class="form-control" 
+            id="familiy_member9" 
+            name="family_member9" [(ngModel)]="data.formData['family_member9']" > 
+            <option value="0">Self</option>
+            <option *ngFor="let k of data.family">
+                {{ k.first_name }} {{ k.middle_name }} {{ k.last_name }} 
+            </option>
+            </select>
+        </div>
+     </div>
+</div>
+</div>
+
+<!-- 10 -->
+<div class="row" style="margin-top: 10px;">
+    <div class="card card-body">
+    <div class="row">
+    <div class="col-xl-7">
+        <span style="font-size:18px;">
+            (10) Within the last five (5) years, do you or dependent have or have had cancer and\/or cancerous tumor (state type, part of body)
+        </span>
+    </div>
+    <div class="col-xl-3">
+        <select id="a10" name="a10" [(ngModel)]="data.formData['a10']" class="form-control">
+            <option value="">--</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    </div>
+    <div style="margin-top: 20px; background-color: pink; padding-top: 10px; padding-bottom: 10px;" class="row" *ngIf="data.formData['a10']=='Yes'||data.formData['details10']!=''||data.formData['onset10']!=''">
+        <h2>Please provide details regarding your answer:</h2>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a10']=='Yes'||data.formData['details10']!=''||data.formData['onset10']!=''">
+        <div class="col-xl-4">Onset: <input class="form-control" type="text" id="onset10" name="onset10" [(ngModel)]="data.formData['onset10']" > </div>
+        <div class="col-xl-4">Duration: <input class="form-control" type="text" id="duration10" name="duration10" [(ngModel)]="data.formData['duration10']" > </div>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a10']=='Yes'||data.formData['details10']!=''||data.formData['onset10']!=''">
+        <div class="col-xl-10">Detals: <textarea rows="3" class="form-control" type="text" id="details10" name="details10" [(ngModel)]="data.formData['details10']" ></textarea> </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a10']=='Yes'||data.formData['details10']!=''||data.formData['onset10']!=''">
+        <div class="col-xl-10">Outome: <input class="form-control" type="text" id="results10" name="results10" [(ngModel)]="data.formData['results10']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row"*ngIf="data.formData['a10']=='Yes'||data.formData['details10']!=''||data.formData['onset10']!=''">
+        <div class="col-xl-10">Provider: <input class="form-control" type="text" id="results10" name="results10" [(ngModel)]="data.formData['provider10']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a10']=='Yes'||data.formData['details10']!=''||data.formData['onset10']!=''">
+        <div class="col-xl-10">Family Member: <select class="form-control" 
+            id="familiy_member10" 
+            name="family_member10" [(ngModel)]="data.formData['family_member10']" > 
+            <option value="0">Self</option>
+            <option *ngFor="let k of data.family">
+                {{ k.first_name }} {{ k.middle_name }} {{ k.last_name }} 
+            </option>
+            </select>
+        </div>
+     </div>
+</div>
+</div>
+
+<!-- 11 -->
+<div class="row" style="margin-top: 10px;">
+    <div class="card card-body">
+    <div class="row">
+    <div class="col-xl-7">
+        <span style="font-size:18px;">
+            (11) Within the last five (5) years, do you or dependent have or have had any diabetes, liver or thyroid disease, enlargement of the lymph nodes, blood disorder?
+        </span>
+    </div>
+    <div class="col-xl-3">
+        <select id="a11" name="a11" [(ngModel)]="data.formData['a11']" class="form-control">
+            <option value="">--</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    </div>
+    <div style="margin-top: 20px; background-color: pink; padding-top: 10px; padding-bottom: 10px;" class="row" *ngIf="data.formData['a11']=='Yes'||data.formData['details11']!=''||data.formData['onset11']!=''">
+        <h2>Please provide details regarding your answer:</h2>
+    </div>
+    <div style="background-color: pink;"  class="row" *ngIf="data.formData['a11']=='Yes'||data.formData['details11']!=''||data.formData['onset11']!=''">
+        <div class="col-xl-4">Onset: <input class="form-control" type="text" id="onset11" name="onset11" [(ngModel)]="data.formData['onset11']" > </div>
+        <div class="col-xl-4">Duration: <input class="form-control" type="text" id="duration11" name="duration11" [(ngModel)]="data.formData['duration11']" > </div>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a11']=='Yes'||data.formData['details11']!=''||data.formData['onset11']!=''">
+        <div class="col-xl-10">Detals: <textarea rows="3" class="form-control" type="text" id="details11" name="details11" [(ngModel)]="data.formData['details11']" ></textarea> </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a11']=='Yes'||data.formData['details11']!=''||data.formData['onset11']!=''">
+        <div class="col-xl-10">Outome: <input class="form-control" type="text" id="results11" name="results11" [(ngModel)]="data.formData['results11']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row"*ngIf="data.formData['a11']=='Yes'||data.formData['details11']!=''||data.formData['onset11']!=''">
+        <div class="col-xl-10">Provider: <input class="form-control" type="text" id="results11" name="results11" [(ngModel)]="data.formData['provider11']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a11']=='Yes'||data.formData['details11']!=''||data.formData['onset11']!=''">
+        <div class="col-xl-10">Family Member: <select class="form-control" 
+            id="familiy_member11" 
+            name="family_member11" [(ngModel)]="data.formData['family_member11']" > 
+            <option value="0">Self</option>
+            <option *ngFor="let k of data.family">
+                {{ k.first_name }} {{ k.middle_name }} {{ k.last_name }} 
+            </option>
+            </select>
+        </div>
+     </div>
+</div>
+</div>
+
+<!-- 12 -->
+<div class="row" style="margin-top: 10px;">
+    <div class="card card-body">
+    <div class="row">
+    <div class="col-xl-7">
+        <span style="font-size:18px;">
+            (12) Within the last five (5) years, do you or dependent have or have had any stomach gallbladder, intestinal or colon disorder?
+        </span>
+    </div>
+    <div class="col-xl-3">
+        <select id="a12" name="a12" [(ngModel)]="data.formData['a12']" class="form-control">
+            <option value="">--</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    </div>
+    <div style="margin-top: 20px; background-color: pink; padding-top: 10px; padding-bottom: 10px;" class="row" *ngIf="data.formData['a12']=='Yes'||data.formData['details12']!=''||data.formData['onset12']!=''">
+        <h2>Please provide details regarding your answer:</h2>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a12']=='Yes'||data.formData['details12']!=''||data.formData['onset12']!=''">
+        <div class="col-xl-4">Onset: <input class="form-control" type="text" id="onset12" name="onset12" [(ngModel)]="data.formData['onset12']" > </div>
+        <div class="col-xl-4">Duration: <input class="form-control" type="text" id="duration12" name="duration12" [(ngModel)]="data.formData['duration12']" > </div>
+    </div>
+    <div style="background-color: pink;"  class="row" *ngIf="data.formData['a12']=='Yes'||data.formData['details12']!=''||data.formData['onset12']!=''">
+        <div class="col-xl-10">Detals: <textarea rows="3" class="form-control" type="text" id="details12" name="details12" [(ngModel)]="data.formData['details12']" ></textarea> </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a12']=='Yes'||data.formData['details12']!=''||data.formData['onset12']!=''">
+        <div class="col-xl-10">Outome: <input class="form-control" type="text" id="results12" name="results12" [(ngModel)]="data.formData['results12']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row"*ngIf="data.formData['a12']=='Yes'||data.formData['details12']!=''||data.formData['onset12']!=''">
+        <div class="col-xl-10">Provider: <input class="form-control" type="text" id="results12" name="results12" [(ngModel)]="data.formData['provider12']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a12']=='Yes'||data.formData['details12']!=''||data.formData['onset12']!=''">
+        <div class="col-xl-10">Family Member: <select class="form-control" 
+            id="familiy_member12" 
+            name="family_member12" [(ngModel)]="data.formData['family_member12']" > 
+            <option value="0">Self</option>
+            <option *ngFor="let k of data.family">
+                {{ k.first_name }} {{ k.middle_name }} {{ k.last_name }} 
+            </option>
+            </select>
+        </div>
+     </div>
+</div>
+</div>
+
+<!-- 13 -->
+<div class="row" style="margin-top: 10px;">
+    <div class="card card-body">
+    <div class="row">
+    <div class="col-xl-7">
+        <span style="font-size:18px;">
+            (13) Within the last five (5) years, do you or dependent have or have had arthritis, joint or back disorders?
+        </span>
+    </div>
+    <div class="col-xl-3">
+        <select id="a13" name="a13" [(ngModel)]="data.formData['a13']" class="form-control">
+            <option value="">--</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    </div>
+    <div style="margin-top: 20px; background-color: pink; padding-top: 10px; padding-bottom: 10px;" class="row" *ngIf="data.formData['a13']=='Yes'||data.formData['details13']!=''||data.formData['onset13']!=''">
+        <h2>Please provide details regarding your answer:</h2>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a13']=='Yes'||data.formData['details13']!=''||data.formData['onset13']!=''">
+        <div class="col-xl-4">Onset: <input class="form-control" type="text" id="onset13" name="onset13" [(ngModel)]="data.formData['onset13']" > </div>
+        <div class="col-xl-4">Duration: <input class="form-control" type="text" id="duration13" name="duration13" [(ngModel)]="data.formData['duration13']" > </div>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a13']=='Yes'||data.formData['details13']!=''||data.formData['onset13']!=''">
+        <div class="col-xl-10">Detals: <textarea rows="3" class="form-control" type="text" id="details13" name="details13" [(ngModel)]="data.formData['details13']" ></textarea> </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a13']=='Yes'||data.formData['details13']!=''||data.formData['onset13']!=''">
+        <div class="col-xl-10">Outome: <input class="form-control" type="text" id="results13" name="results13" [(ngModel)]="data.formData['results13']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row"*ngIf="data.formData['a13']=='Yes'||data.formData['details13']!=''||data.formData['onset13']!=''">
+        <div class="col-xl-10">Provider: <input class="form-control" type="text" id="results13" name="results13" [(ngModel)]="data.formData['provider13']" > </div>
+     </div>
+     <div style="background-color: pink;"class="row" *ngIf="data.formData['a13']=='Yes'||data.formData['details13']!=''||data.formData['onset13']!=''">
+        <div class="col-xl-10">Family Member: <select class="form-control" 
+            id="familiy_member13" 
+             name="family_member13" [(ngModel)]="data.formData['family_member13']" > 
+            <option value="0">Self</option>
+            <option *ngFor="let k of data.family">
+                {{ k.first_name }} {{ k.middle_name }} {{ k.last_name }} 
+            </option>
+            </select>
+        </div>
+     </div>
+</div>
+</div>
+
+<!-- 14 -->
+<div class="row" style="margin-top: 10px;">
+    <div class="card card-body">
+    <div class="row">
+    <div class="col-xl-7">
+        <span style="font-size:18px;">
+            (14) Within the last five (5) years, do you or dependent have or have had phlebitis, paralysis or any other physical impairment or deformity?
+        </span>
+    </div>
+    <div class="col-xl-3">
+        <select id="a14" name="a14" [(ngModel)]="data.formData['a14']" class="form-control">
+            <option value="">--</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    </div>
+    <div style="margin-top: 20px; background-color: pink; padding-top: 10px; padding-bottom: 10px;" class="row" *ngIf="data.formData['a14']=='Yes'||data.formData['details14']!=''||data.formData['onset14']!=''">
+        <h2>Please provide details regarding your answer:</h2>
+    </div>
+    <div class="row" *ngIf="data.formData['a14']=='Yes'||data.formData['details14']!=''||data.formData['onset14']!=''">
+        <div class="col-xl-4">Onset: <input class="form-control" type="text" id="onset14" name="onset14" [(ngModel)]="data.formData['onset14']" > </div>
+        <div class="col-xl-4">Duration: <input class="form-control" type="text" id="duration14" name="duration14" [(ngModel)]="data.formData['duration14']" > </div>
+    </div>
+    <div class="row" *ngIf="data.formData['a14']=='Yes'||data.formData['details14']!=''||data.formData['onset14']!=''">
+        <div class="col-xl-10">Detals: <textarea rows="3" class="form-control" type="text" id="details14" name="details14" [(ngModel)]="data.formData['details14']" ></textarea> </div>
+     </div>
+     <div class="row" *ngIf="data.formData['a14']=='Yes'||data.formData['details14']!=''||data.formData['onset14']!=''">
+        <div class="col-xl-10">Outome: <input class="form-control" type="text" id="results14" name="results14" [(ngModel)]="data.formData['results14']" > </div>
+     </div>
+     <div class="row"*ngIf="data.formData['a14']=='Yes'||data.formData['details14']!=''||data.formData['onset14']!=''">
+        <div class="col-xl-10">Provider: <input class="form-control" type="text" id="results14" name="results14" [(ngModel)]="data.formData['provider14']" > </div>
+     </div>
+     <div class="row" *ngIf="data.formData['a14']=='Yes'||data.formData['details14']!=''||data.formData['onset14']!=''">
+        <div class="col-xl-10">Family Member: <select class="form-control" 
+            id="familiy_member14" 
+            name="family_member14" [(ngModel)]="data.formData['family_member14']" > 
+            <option value="0">Self</option>
+            <option *ngFor="let k of data.family">
+                {{ k.first_name }} {{ k.middle_name }} {{ k.last_name }} 
+            </option>
+            </select>
+        </div>
+     </div>
+</div>
+</div>
+
+<!-- 15 -->
+<div class="row" style="margin-top: 10px;">
+    <div class="card card-body">
+    <div class="row">
+    <div class="col-xl-7">
+        <span style="font-size:18px;">
+            (15) Within the last five (5) years, do you or dependent have or have had alcoholism or drug habit, or been a member of alcoholics anonymous?
+        </span>
+    </div>
+    <div class="col-xl-3">
+        <select id="a15" name="a15" [(ngModel)]="data.formData['a15']" class="form-control">
+            <option value="">--</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    </div>
+    <div style="margin-top: 20px; background-color: pink; padding-top: 10px; padding-bottom: 10px;" class="row" *ngIf="data.formData['a15']=='Yes'||data.formData['details15']!=''||data.formData['onset15']!=''">
+        <h2>Please provide details regarding your answer:</h2>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a15']=='Yes'||data.formData['details15']!=''||data.formData['onset15']!=''">
+        <div class="col-xl-4">Onset: <input class="form-control" type="text" id="onset15" name="onset15" [(ngModel)]="data.formData['onset15']" > </div>
+        <div class="col-xl-4">Duration: <input class="form-control" type="text" id="duration15" name="duration15" [(ngModel)]="data.formData['duration15']" > </div>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a15']=='Yes'||data.formData['details15']!=''||data.formData['onset15']!=''">
+        <div class="col-xl-10">Detals: <textarea rows="3" class="form-control" type="text" id="details15" name="details15" [(ngModel)]="data.formData['details15']" ></textarea> </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a15']=='Yes'||data.formData['details15']!=''||data.formData['onset15']!=''">
+        <div class="col-xl-10">Outome: <input class="form-control" type="text" id="results15" name="results15" [(ngModel)]="data.formData['results15']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row"*ngIf="data.formData['a15']=='Yes'||data.formData['details15']!=''||data.formData['onset15']!=''">
+        <div class="col-xl-10">Provider: <input class="form-control" type="text" id="results15" name="results15" [(ngModel)]="data.formData['provider15']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a15']=='Yes'||data.formData['details15']!=''||data.formData['onset15']!=''">
+        <div class="col-xl-10">Family Member: <select class="form-control" 
+            id="familiy_member15" 
+            name="family_member15" [(ngModel)]="data.formData['family_member15']" > 
+            <option value="0">Self</option>
+            <option *ngFor="let k of data.family">
+                {{ k.first_name }} {{ k.middle_name }} {{ k.last_name }} 
+            </option>
+            </select>
+        </div>
+     </div>
+</div>
+</div>
+
+<!-- 16 -->
+<div class="row" style="margin-top: 10px;">
+    <div class="card card-body">
+    <div class="row">
+    <div class="col-xl-7">
+        <span style="font-size:18px;">
+            (16) Within the last five (5) years, do you or dependent have or have had HIV, AIDS or AID-related or any other disease?
+        </span>
+    </div>
+    <div class="col-xl-3">
+        <select id="a16" name="a16" [(ngModel)]="data.formData['a16']" class="form-control">
+            <option value="">--</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    </div>
+    <div style="margin-top: 20px; background-color: pink; padding-top: 10px; padding-bottom: 10px;" class="row" *ngIf="data.formData['a17']=='Yes'||data.formData['details17']!=''||data.formData['onset17']!=''">
+        <h2>Please provide details regarding your answer:</h2>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a17']=='Yes'||data.formData['details17']!=''||data.formData['onset17']!=''">
+        <div class="col-xl-4">Onset: <input class="form-control" type="text" id="onset17" name="onset17" [(ngModel)]="data.formData['onset17']" > </div>
+        <div class="col-xl-4">Duration: <input class="form-control" type="text" id="duration17" name="duration17" [(ngModel)]="data.formData['duration17']" > </div>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a17']=='Yes'||data.formData['details17']!=''||data.formData['onset17']!=''">
+        <div class="col-xl-10">Detals: <textarea rows="3" class="form-control" type="text" id="details17" name="details17" [(ngModel)]="data.formData['details17']" ></textarea> </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a17']=='Yes'||data.formData['details17']!=''||data.formData['onset17']!=''">
+        <div class="col-xl-10">Outome: <input class="form-control" type="text" id="results17" name="results17" [(ngModel)]="data.formData['results17']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row"*ngIf="data.formData['a17']=='Yes'||data.formData['details17']!=''||data.formData['onset17']!=''">
+        <div class="col-xl-10">Provider: <input class="form-control" type="text" id="results17" name="results17" [(ngModel)]="data.formData['provider17']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a17']=='Yes'||data.formData['details17']!=''||data.formData['onset17']!=''">
+        <div class="col-xl-10">Family Member: <select class="form-control" 
+            id="familiy_member17" 
+            name="family_member17" [(ngModel)]="data.formData['family_member17']" > 
+            <option value="0">Self</option>
+            <option *ngFor="let k of data.family">
+                {{ k.first_name }} {{ k.middle_name }} {{ k.last_name }} 
+            </option>
+            </select>
+        </div>
+     </div>
+</div>
+</div>
+<!-- 17 -->
+<div class="row" style="margin-top: 10px;">
+    <div class="card card-body">
+    <div class="row">
+    <div class="col-xl-7">
+        <span style="font-size:18px;">
+            (17) Within the last five (5) years, do you or dependent have or have had neurological disorder?
+        </span>
+    </div>
+    <div class="col-xl-3">
+        <select id="a17" name="a17" [(ngModel)]="data.formData['a17']" class="form-control">
+            <option value="">--</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    </div>
+    <div style="margin-top: 20px; background-color: pink; padding-top: 10px; padding-bottom: 10px;" class="row" *ngIf="data.formData['a16']=='Yes'||data.formData['details16']!=''||data.formData['onset16']!=''">
+        <h2>Please provide details regarding your answer:</h2>
+    </div>
+    <div style="background-color: pink;"  class="row" *ngIf="data.formData['a16']=='Yes'||data.formData['details16']!=''||data.formData['onset16']!=''">
+        <div class="col-xl-4">Onset: <input class="form-control" type="text" id="onset16" name="onset16" [(ngModel)]="data.formData['onset16']" > </div>
+        <div class="col-xl-4">Duration: <input class="form-control" type="text" id="duration16" name="duration16" [(ngModel)]="data.formData['duration16']" > </div>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a16']=='Yes'||data.formData['details16']!=''||data.formData['onset16']!=''">
+        <div class="col-xl-10">Detals: <textarea rows="3" class="form-control" type="text" id="details16" name="details16" [(ngModel)]="data.formData['details16']" ></textarea> </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a16']=='Yes'||data.formData['details16']!=''||data.formData['onset16']!=''">
+        <div class="col-xl-10">Outome: <input class="form-control" type="text" id="results16" name="results16" [(ngModel)]="data.formData['results16']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row"*ngIf="data.formData['a16']=='Yes'||data.formData['details16']!=''||data.formData['onset16']!=''">
+        <div class="col-xl-10">Provider: <input class="form-control" type="text" id="results16" name="results16" [(ngModel)]="data.formData['provider16']" > </div>
+     </div>
+     <div style="background-color: pink;"class="row" *ngIf="data.formData['a16']=='Yes'||data.formData['details16']!=''||data.formData['onset16']!=''">
+        <div class="col-xl-10">Family Member: <select class="form-control" 
+            id="familiy_member16" 
+            n ame="family_member16" [(ngModel)]="data.formData['family_member16']" > 
+            <option value="0">Self</option>
+            <option *ngFor="let k of data.family">
+                {{ k.first_name }} {{ k.middle_name }} {{ k.last_name }} 
+            </option>
+            </select>
+        </div>
+     </div>
+</div>
+</div>
+
+<!-- 18 -->
+<div class="row" style="margin-top: 10px;">
+    <div class="card card-body">
+    <div class="row">
+    <div class="col-xl-7">
+        <span style="font-size:18px;">
+            (18) Within the last five (5) years, do you or dependent have or have had Systematic Lupus\/Multiple Sclerosis?
+        </span>
+    </div>
+    <div class="col-xl-3">
+        <select id="a18" name="a18" [(ngModel)]="data.formData['a18']" class="form-control">
+            <option value="">--</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    </div>
+    <div style="margin-top: 20px; background-color: pink; padding-top: 10px; padding-bottom: 10px;" class="row" *ngIf="data.formData['a18']=='Yes'||data.formData['details18']!=''||data.formData['onset18']!=''">
+        <h2>Please provide details regarding your answer:</h2>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a18']=='Yes'||data.formData['details18']!=''||data.formData['onset18']!=''">
+        <div class="col-xl-4">Onset: <input class="form-control" type="text" id="onset18" name="onset18" [(ngModel)]="data.formData['onset18']" > </div>
+        <div class="col-xl-4">Duration: <input class="form-control" type="text" id="duration18" name="duration18" [(ngModel)]="data.formData['duration18']" > </div>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a18']=='Yes'||data.formData['details18']!=''||data.formData['onset18']!=''">
+        <div class="col-xl-10">Detals: <textarea rows="3" class="form-control" type="text" id="details18" name="details18" [(ngModel)]="data.formData['details18']" ></textarea> </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a18']=='Yes'||data.formData['details18']!=''||data.formData['onset18']!=''">
+        <div class="col-xl-10">Outome: <input class="form-control" type="text" id="results18" name="results18" [(ngModel)]="data.formData['results18']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row"*ngIf="data.formData['a18']=='Yes'||data.formData['details18']!=''||data.formData['onset18']!=''">
+        <div class="col-xl-10">Provider: <input class="form-control" type="text" id="results18" name="results18" [(ngModel)]="data.formData['provider18']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a18']=='Yes'||data.formData['details18']!=''||data.formData['onset18']!=''">
+        <div class="col-xl-10">Family Member: <select class="form-control" 
+            id="familiy_member18" 
+            name="family_member18" [(ngModel)]="data.formData['family_member18']" > 
+            <option value="0">Self</option>
+            <option *ngFor="let k of data.family">
+                {{ k.first_name }} {{ k.middle_name }} {{ k.last_name }} 
+            </option>
+            </select>
+        </div>
+     </div>
+</div>
+</div>
+
+<!-- 19 -->
+<div class="row" style="margin-top: 10px;">
+    <div class="card card-body">
+    <div class="row">
+    <div class="col-xl-7">
+        <span style="font-size:18px;">
+            (19) Within the last five (5) years, do you or dependent have or have had Birth defects\/Congenital Disorder?
+        </span>
+    </div>
+    <div class="col-xl-3">
+        <select id="a19" name="a19" [(ngModel)]="data.formData['a19']" class="form-control">
+            <option value="">--</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    </div>
+    <div style="background-color: pink; padding-top: 10px; padding-bottom: 10px;" class="row" *ngIf="data.formData['a19']=='Yes'||data.formData['details19']!=''||data.formData['onset19']!=''">
+        <h2>Please provide details regarding your answer:</h2>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a19']=='Yes'||data.formData['details19']!=''||data.formData['onset19']!=''">
+        <div class="col-xl-4">Onset: <input class="form-control" type="text" id="onset19" name="onset19" [(ngModel)]="data.formData['onset19']" > </div>
+        <div class="col-xl-4">Duration: <input class="form-control" type="text" id="duration19" name="duration19" [(ngModel)]="data.formData['duration19']" > </div>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a19']=='Yes'||data.formData['details19']!=''||data.formData['onset19']!=''">
+        <div class="col-xl-10">Detals: <textarea rows="3" class="form-control" type="text" id="details19" name="details19" [(ngModel)]="data.formData['details19']" ></textarea> </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a19']=='Yes'||data.formData['details19']!=''||data.formData['onset19']!=''">
+        <div class="col-xl-10">Outome: <input class="form-control" type="text" id="results19" name="results19" [(ngModel)]="data.formData['results19']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row"*ngIf="data.formData['a19']=='Yes'||data.formData['details19']!=''||data.formData['onset19']!=''">
+        <div class="col-xl-10">Provider: <input class="form-control" type="text" id="results19" name="results19" [(ngModel)]="data.formData['provider19']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a19']=='Yes'||data.formData['details19']!=''||data.formData['onset19']!=''">
+        <div class="col-xl-10">Family Member: <select class="form-control" 
+            id="familiy_member19" 
+            name="family_member19" [(ngModel)]="data.formData['family_member19']" > 
+            <option value="0">Self</option>
+            <option *ngFor="let k of data.family">
+                {{ k.first_name }} {{ k.middle_name }} {{ k.last_name }} 
+            </option>
+            </select>
+        </div>
+     </div>
+</div>
+</div>
+
+<!-- 20 -->
+<div class="row" style="margin-top: 10px;">
+    <div class="card card-body">
+    <div class="row">
+    <div class="col-xl-7">
+        <span style="font-size:18px;">
+            (20) Within the last five (5) years, do you or dependent have or have had any organ or tissue transplant?
+        </span>
+    </div>
+    <div class="col-xl-3">
+        <select id="a20" name="a20" [(ngModel)]="data.formData['a20']" class="form-control">
+            <option value="">--</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    </div>
+    <div style="margin-top: 20px; background-color: pink; padding-top: 10px; padding-bottom: 10px;" class="row" *ngIf="data.formData['a20']=='Yes'||data.formData['details20']!=''||data.formData['onset20']!=''">
+        <h2>Please provide details regarding your answer:</h2>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a20']=='Yes'||data.formData['details20']!=''||data.formData['onset20']!=''">
+        <div class="col-xl-4">Onset: <input class="form-control" type="text" id="onset20" name="onset20" [(ngModel)]="data.formData['onset20']" > </div>
+        <div class="col-xl-4">Duration: <input class="form-control" type="text" id="duration20" name="duration20" [(ngModel)]="data.formData['duration20']" > </div>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a20']=='Yes'||data.formData['details20']!=''||data.formData['onset20']!=''">
+        <div class="col-xl-10">Detals: <textarea rows="3" class="form-control" type="text" id="details20" name="details20" [(ngModel)]="data.formData['details20']" ></textarea> </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a20']=='Yes'||data.formData['details20']!=''||data.formData['onset20']!=''">
+        <div class="col-xl-10">Outome: <input class="form-control" type="text" id="results20" name="results20" [(ngModel)]="data.formData['results20']" > </div>
+     </div>
+     <div  style="background-color: pink;" class="row"*ngIf="data.formData['a20']=='Yes'||data.formData['details20']!=''||data.formData['onset20']!=''">
+        <div class="col-xl-10">Provider: <input class="form-control" type="text" id="results20" name="results20" [(ngModel)]="data.formData['provider20']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a20']=='Yes'||data.formData['details20']!=''||data.formData['onset20']!=''">
+        <div class="col-xl-10">Family Member: <select class="form-control" 
+            id="familiy_member20" 
+            name="family_member20" [(ngModel)]="data.formData['family_member20']" > 
+            <option value="0">Self</option>
+            <option *ngFor="let k of data.family">
+                {{ k.first_name }} {{ k.middle_name }} {{ k.last_name }} 
+            </option>
+            </select>
+        </div>
+     </div>
+</div>
+</div>
+
+<!-- 21 -->
+<div class="row" style="margin-top: 10px;">
+    <div class="card card-body">
+    <div class="row">
+    <div class="col-xl-7">
+        <span style="font-size:18px;">
+            (21) Are you or any dependent pregnant?
+               </span>
+    </div>
+    <div class="col-xl-3">
+        <select id="a21" name="a21" [(ngModel)]="data.formData['a21']" class="form-control">
+            <option value="">--</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    </div>
+    <div style="margin-top: 20px; background-color: pink; padding-top: 10px; padding-bottom: 10px;" class="row" *ngIf="data.formData['a21']=='Yes'||data.formData['details21']!=''||data.formData['onset21']!=''">
+        <h2>Please provide details regarding your answer:</h2>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a21']=='Yes'||data.formData['details21']!=''||data.formData['onset21']!=''">
+        <div class="col-xl-4">Onset: <input class="form-control" type="text" id="onset21" name="onset21" [(ngModel)]="data.formData['onset21']" > </div>
+        <div class="col-xl-4">Duration: <input class="form-control" type="text" id="duration21" name="duration21" [(ngModel)]="data.formData['duration21']" > </div>
+    </div>
+    <div style="background-color: pink;"class="row" *ngIf="data.formData['a21']=='Yes'||data.formData['details21']!=''||data.formData['onset21']!=''">
+        <div class="col-xl-10">Detals: <textarea rows="3" class="form-control" type="text" id="details21" name="details21" [(ngModel)]="data.formData['details21']" ></textarea> </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a21']=='Yes'||data.formData['details21']!=''||data.formData['onset21']!=''">
+        <div class="col-xl-10">Outome: <input class="form-control" type="text" id="results21" name="results21" [(ngModel)]="data.formData['results21']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row"*ngIf="data.formData['a21']=='Yes'||data.formData['details21']!=''||data.formData['onset21']!=''">
+        <div class="col-xl-10">Provider: <input class="form-control" type="text" id="results21" name="results21" [(ngModel)]="data.formData['provider21']" > </div>
+     </div>
+     <div style="background-color: pink;"class="row" *ngIf="data.formData['a21']=='Yes'||data.formData['details21']!=''||data.formData['onset21']!=''">
+        <div class="col-xl-10">Family Member: <select class="form-control" 
+            id="familiy_member21" 
+            name="family_member21" [(ngModel)]="data.formData['family_member21']" > 
+            <option value="0">Self</option>
+            <option *ngFor="let k of data.family">
+                {{ k.first_name }} {{ k.middle_name }} {{ k.last_name }} 
+            </option>
+            </select>
+        </div>
+     </div>
+</div>
+</div>
+
+<!-- 22 -->
+<div class="row" style="margin-top: 10px;">
+    <div class="card card-body">
+    <div class="row">
+    <div class="col-xl-7">
+        <span style="font-size:18px;">
+            (22) If pregnant, are you or any eligible dependent expecting multiple births, having complications or planning a C-section?
+        </span>
+    </div>
+    <div class="col-xl-3">
+        <select id="a22" name="a22" [(ngModel)]="data.formData['a22']" class="form-control">
+            <option value="">--</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+    </div>
+    </div>
+    <div style="margin-top: 20px; background-color: pink; padding-top: 10px; padding-bottom: 10px;" class="row" *ngIf="data.formData['a22']=='Yes'||data.formData['details22']!=''||data.formData['onset22']!=''">
+        <h2>Please provide details regarding your answer:</h2>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a22']=='Yes'||data.formData['details22']!=''||data.formData['onset22']!=''">
+        <div class="col-xl-4">Onset: <input class="form-control" type="text" id="onset22" name="onset22" [(ngModel)]="data.formData['onset22']" > </div>
+        <div class="col-xl-4">Duration: <input class="form-control" type="text" id="duration22" name="duration22" [(ngModel)]="data.formData['duration22']" > </div>
+    </div>
+    <div style="background-color: pink;" class="row" *ngIf="data.formData['a22']=='Yes'||data.formData['details22']!=''||data.formData['onset22']!=''">
+        <div class="col-xl-10">Detals: <textarea rows="3" class="form-control" type="text" id="details22" name="details22" [(ngModel)]="data.formData['details22']" ></textarea> </div>
+     </div>
+     <div style="background-color: pink;" class="row" *ngIf="data.formData['a22']=='Yes'||data.formData['details22']!=''||data.formData['onset22']!=''">
+        <div class="col-xl-10">Outome: <input class="form-control" type="text" id="results22" name="results22" [(ngModel)]="data.formData['results22']" > </div>
+     </div>
+     <div style="background-color: pink;" class="row"*ngIf="data.formData['a22']=='Yes'||data.formData['details22']!=''||data.formData['onset22']!=''">
+        <div class="col-xl-10">Provider: <input class="form-control" type="text" id="results22" name="results22" [(ngModel)]="data.formData['provider22']" > </div>
+     </div>
+     <div style="background-color: pink;"class="row" *ngIf="data.formData['a22']=='Yes'||data.formData['details22']!=''||data.formData['onset22']!=''">
+        <div class="col-xl-10">Family Member: <select class="form-control" 
+            id="familiy_member22" 
+            name="family_member22" [(ngModel)]="data.formData['family_member22']" > 
+            <option value="0">Self</option>
+            <option *ngFor="let k of data.family">
+                {{ k.first_name }} {{ k.middle_name }} {{ k.last_name }} 
+            </option>
+            </select>
+        </div>
+     </div>
+</div>
+</div>
+
+
+
+
+
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-primary" [routerLink]="['/edit-company',data.id]">Upload Document</button>
+        </div>
+    </div>
+</div>
+
+        </div>
+    </div> <!-- ROW -->
+</div>   <!-- CONTAINER -->
+</div>

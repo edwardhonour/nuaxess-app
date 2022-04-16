@@ -1,0 +1,306 @@
+<fuse-loading-bar></fuse-loading-bar>
+<fuse-vertical-navigation
+    class="dark bg-gray-900 print:hidden"
+    [mode]="isScreenSmall ? 'over' : 'side'"
+    [name]="'mainNavigation'"
+    [navigation]="navigation.default"
+    [opened]="!isScreenSmall">
+    <ng-container fuseVerticalNavigationContentHeader>
+        <div class="flex items-center w-full p-4 pl-6">
+            <div class="flex items-center justify-center">
+                <img
+                    class="w-8"
+                    src="assets/images/logo/logo.png">
+            </div>
+            <div class="flex items-center ml-auto">
+                <notifications></notifications>
+                <user [showAvatar]="false"></user>
+            </div>
+        </div>
+        <div class="flex flex-col items-center w-full p-4">
+            <div class="relative w-24 h-24">
+                <img
+                    class="w-full h-full rounded-full"
+                    *ngIf="user.avatar"
+                    [src]="user.avatar"
+                    alt="User avatar">
+                <mat-icon
+                    class="icon-size-24"
+                    *ngIf="!user.avatar"
+                    [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+            </div>
+            <div class="flex flex-col items-center justify-center w-full mt-6">
+                <div class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden text-center leading-normal font-medium">
+                    {{user.name}}
+                </div>
+                <div class="w-full mt-0.5 whitespace-nowrap overflow-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary">
+                    {{user.email}}
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <!-- Navigation footer hook -->
+    <ng-container fuseVerticalNavigationContentFooter>
+        <div class="flex flex-0 items-center justify-center h-16 pr-6 pl-2 mt-2 mb-4 opacity-12">
+            <img
+                class="max-w-36"
+                src="assets/images/logo/logo-text-on-dark.png">
+        </div>
+    </ng-container>
+</fuse-vertical-navigation>
+
+<!-- Wrapper -->
+<div class="flex flex-col flex-auto w-full min-w-0">
+
+    <!-- Header -->
+    <div class="relative flex flex-0 items-center w-full h-16 px-4 md:px-6 z-49 shadow dark:shadow-none dark:border-b bg-card dark:bg-transparent print:hidden">
+        <!-- Navigation toggle button -->
+        <button
+            mat-icon-button
+            (click)="toggleNavigation('mainNavigation')">
+            <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
+        </button>
+        <!-- Components -->
+        <div class="flex items-center pl-2 ml-auto space-x-0.5 sm:space-x-2">
+            <languages></languages>
+            <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
+            <search [appearance]="'bar'"></search>
+            <shortcuts></shortcuts>
+            <messages></messages>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+
+        <mat-drawer-container
+            class="flex-auto h-full bg-card dark:bg-transparent"
+            (backdropClick)="onBackdropClicked()">
+    
+            <!-- Drawer -->
+    <!--        <mat-drawer
+                class="w-full md:w-160 dark:bg-gray-900"
+                [mode]="drawerMode"
+                [opened]="false"
+                [position]="'end'"
+                [disableClose]="true"
+                #matDrawer>
+                <router-outlet></router-outlet>
+            </mat-drawer> -->
+    
+            <mat-drawer-content class="flex flex-col">
+    
+                <!-- Main -->
+                <div class="flex-auto">
+    
+                    <!-- Header -->
+                    <div class="flex flex-col sm:flex-row md:flex-col flex-auto justify-between py-8 px-6 md:px-8 border-b">
+    
+                        <!-- Title -->
+                        <div>
+                            <div class="text-4xl font-extrabold tracking-tight leading-none">Contacts</div>
+                            <div class="ml-0.5 font-medium text-secondary">
+                                <ng-container *ngIf="data.census.length > 0">
+                                    {{ data.census.length }}
+                                </ng-container>
+                                {{data.census.length | i18nPlural: {
+                                '=0'   : 'No contacts',
+                                '=1'   : 'contact',
+                                'other': 'contacts'
+                            } }}
+                            </div>
+                        </div>
+    
+                        <!-- Main actions -->
+                        <div class="flex items-center mt-4 sm:mt-0 md:mt-4">
+                            <!-- Search -->
+                            <div class="flex-auto">
+                  <!--              <mat-form-field class="fuse-mat-dense fuse-mat-no-subscript fuse-mat-rounded w-full min-w-50">
+                                    <mat-icon
+                                        class="icon-size-5"
+                                        matPrefix
+                                        [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                                    <input
+                                        matInput
+                                        [formControl]="searchInputControl"
+                                        [autocomplete]="'off'"
+                                        [placeholder]="'Search contacts'">
+                                </mat-form-field> -->
+                            </div>
+                            <!-- Add contact button -->
+                            <button
+                                class="ml-4"
+                                mat-flat-button
+                                [color]="'primary'"
+                                (click)="createContact()">
+                                <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+                                <span class="ml-2 mr-1">Add</span>
+                            </button>
+                        </div>
+                    </div>
+    
+                    <!-- Contacts list -->
+                    <div class="relative">
+                        <ng-container>
+                            <ng-container *ngIf="data.census.length; else noContacts">
+                                <ng-container *ngFor="let contact of data.census; let i = index; trackBy: trackByFn">
+                                    <!-- Group -->
+                                    <ng-container>
+                                        <div class="z-10 sticky top-0 -mt-px px-6 py-1 md:px-8 border-t border-b font-medium uppercase text-secondary bg-gray-50 dark:bg-gray-900">
+                                            A
+                                        </div>
+                                    </ng-container>
+                                    <!-- Contact -->
+                                    <a
+                                        class="z-20 flex items-center px-6 py-4 md:px-8 cursor-pointer border-b"
+                                        [ngClass]="{'hover:bg-gray-100 dark:hover:bg-hover': !selectedContact || selectedContact.id !== contact.id,
+                                                    'bg-primary-50 dark:bg-hover': selectedContact && selectedContact.id === contact.id}"
+                                        [routerLink]="['./', contact.id]">
+                                        <div class="flex flex-0 items-center justify-center w-10 h-10 rounded-full overflow-hidden">
+                                            <ng-container *ngIf="contact.avatar">
+                                                <img
+                                                    class="object-cover w-full h-full"
+                                                    [src]="contact.avatar"
+                                                    alt="Contact avatar"/>
+                                            </ng-container>
+                                            <ng-container *ngIf="!contact.avatar">
+                                                <div class="flex items-center justify-center w-full h-full rounded-full text-lg uppercase bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200">
+                                                    {{contact.last_name}}
+                                                </div>
+                                            </ng-container>
+                                        </div>
+                                        <div class="min-w-0 ml-4">
+                                            <div class="font-medium leading-5 truncate">{{contact.last_name}}</div>
+                                            <div class="leading-5 truncate text-secondary">{{contact.title}}</div>
+                                        </div>
+                                    </a>
+                                </ng-container>
+                            </ng-container>
+                        </ng-container>
+    
+                        <!-- No contacts -->
+                        <ng-template #noContacts>
+                            <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">There are no contacts!</div>
+                        </ng-template>
+    
+                    </div>
+    
+                </div>
+    
+            </mat-drawer-content>
+    
+        </mat-drawer-container>
+    
+    </div>
+    <div class="flex flex-col flex-auto">
+        <!-- *ngIf="true" hack is required here for router-outlet to work correctly.
+             Otherwise, layout changes won't be registered and the view won't be updated! -->
+             <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 p-4">
+                        <h1 style="font-size: 24px; font-weight: bold;">Member List (Active and Inactive)</h1>
+                    </div>
+                </div>
+            </div>
+             <div class="flex flex-col flex-auto min-w-0">
+
+                <!-- Header -->
+            
+
+                <div class="flex-auto border-t -mt-px pt-4 sm:pt-6">
+                    <div class="w-full max-w-screen-xl mx-auto">
+                        <!-- Tabs -->
+                    </div>
+                        <div class="card card-body" style="margin-top: 20px;">
+                                <div class="row">
+                                    <div class="col-md-12 col-xl-12">
+                                        <div class="card card-body" style="margin-top:20px;">
+                                            <div class="table-responsive">
+                                                <h2 style="font-size: 24px;"><b>Member List</b></h2>
+                                            <div class="col-lg-6 py-2">
+                                                Search: <input style="max-width:320px;" class="form-control" type="text" id="term" name="term" [(ngModel)]="term"> 
+                                            </div>
+                                            <table class="table table-responsive">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Employee ID
+                                                        </th>
+                                                        <th>
+                                                            Name
+                                                        </th>
+                                                        <th>
+                                                            Gender
+                                                        </th>
+                                                        <th>
+                                                            Effective Date
+                                                        </th>
+                                                        <th>
+                                                            Medical
+                                                        </th>
+                                                        <th>
+                                                            Dental
+                                                        </th>
+                                                        <th>
+                                                            Vision
+                                                        </th>
+                                                        <th>
+                                                            Term Date
+                                                        </th>
+                                                        <th>            
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                        <tbody>
+                                        <tr *ngFor="let m of data.census | filter: term ">
+                                            <td>
+                                                {{ m.employee_code }}
+                                            </td>
+                                            <td>
+                                                {{ m.last_name }}, {{ m.first_name }} {{ m.middle_name }}
+                                            </td>
+                                            <td>
+                                                {{ m.gender }}
+                                            </td>
+                                            <td>
+                                                {{ m.effective_date }}
+                                            </td>
+                                            <td>
+                                                {{ m.medical_plan }}-{{ m.medical_plan_level }}
+                                            </td>
+                                            <td>
+                                                {{ m.dental_plan }}-{{ m.dental_plan_level }}
+                                            </td>
+                                            <td>
+                                                {{ m.vision_plan }}-{{ m.vision_plan_level }}
+                                            </td>
+                                            <td>
+                                                {{ m.term_date }}
+                                            </td>
+                                            <td>
+                                                <button  *ngIf="m.last_name!=''" [routerLink]="['/employee-dashboard',m.id]" class="btn btn-primary">Dashboard</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                    </div> <!-- table responsive -->
+                                    </div> <!-- Card body -->
+                                    </div> <!-- Col -->
+                            
+                                  
+                        </div>
+                        </div>
+                             
+              
+                </div>
+            
+            </div>
+            
+    </div>
+
+    <!-- Footer -->
+    <!--<div class="relative flex flex-0 items-center justify-start w-full h-14 px-4 md:px-6 z-49 border-t bg-card dark:bg-transparent print:hidden">
+        <span class="font-medium text-secondary">Fuse &copy; {{currentYear}}</span>
+    </div>-->
+
+</div>

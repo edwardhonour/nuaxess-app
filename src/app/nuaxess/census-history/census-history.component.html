@@ -1,0 +1,236 @@
+<!-- Loading bar -->
+<fuse-loading-bar></fuse-loading-bar>
+<!-- Navigation -->
+<fuse-vertical-navigation
+    class="dark bg-gray-900 print:hidden"
+    [mode]="isScreenSmall ? 'over' : 'side'"
+    [name]="'mainNavigation'"
+    [navigation]="navigation.default"
+    [opened]="!isScreenSmall">
+    <!-- Navigation header hook -->
+    <ng-container fuseVerticalNavigationContentHeader>
+        <div class="flex items-center w-full p-4 pl-6">
+            <!-- Logo -->
+            <div class="flex items-center justify-center">
+                <img
+                    class="w-8"
+                    src="assets/images/logo/logo.png">
+            </div>
+            <!-- Components -->
+            <div class="flex items-center ml-auto">
+                <notifications></notifications>
+                <user [showAvatar]="false"></user>
+            </div>
+        </div>
+        <!-- User -->
+        <div class="flex flex-col items-center w-full p-4">
+            <div class="relative w-24 h-24">
+                <img
+                    class="w-full h-full rounded-full"
+                    *ngIf="user.avatar"
+                    [src]="user.avatar"
+                    alt="User avatar">
+                <mat-icon
+                    class="icon-size-24"
+                    *ngIf="!user.avatar"
+                    [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+            </div>
+            <div class="flex flex-col items-center justify-center w-full mt-6">
+                <div class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden text-center leading-normal font-medium">
+                    {{user.name}}
+                </div>
+                <div class="w-full mt-0.5 whitespace-nowrap overflow-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary">
+                    {{user.email}}
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <!-- Navigation footer hook -->
+    <ng-container fuseVerticalNavigationContentFooter>
+        <div class="flex flex-0 items-center justify-center h-16 pr-6 pl-2 mt-2 mb-4 opacity-12">
+            <img
+                class="max-w-36"
+                src="assets/images/logo/logo-text-on-dark.png">
+        </div>
+    </ng-container>
+</fuse-vertical-navigation>
+
+<div
+    class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto"
+    cdkScrollable>
+<!--- THIS IS MOVED INSIDE THE MAIN SECTION AFTER THE FIRST LINE -->
+<div class="relative flex flex-0 items-center w-full h-16 px-4 md:px-6 z-49 shadow dark:shadow-none dark:border-b bg-card dark:bg-transparent print:hidden">
+    <!-- Navigation toggle button -->
+    <button
+        mat-icon-button
+        (click)="toggleNavigation('mainNavigation')">
+        <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
+    </button>
+    <!-- Components -->
+    <div class="flex items-center pl-2 ml-auto space-x-0.5 sm:space-x-2">
+        <languages></languages>
+        <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
+        <search [appearance]="'bar'"></search>
+        <shortcuts></shortcuts>
+        <messages></messages>
+    </div>
+</div>
+    <!-- Header -->
+    <div class="relative flex-0 py-8 px-4 sm:p-16 overflow-hidden bg-gray-800 dark"  style="padding-bottom: 20px !important; padding-top: 20px !important;">
+        <!-- Background - @formatter:off -->
+        <!-- Rings -->
+        <svg class="absolute inset-0 pointer-events-none"
+             viewBox="0 0 960 540" width="100%" height="100%" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+            <g class="text-gray-700 opacity-25" fill="none" stroke="currentColor" stroke-width="100">
+                <circle r="234" cx="196" cy="23"></circle>
+                <circle r="234" cx="790" cy="491"></circle>
+            </g>
+        </svg>
+        <!-- @formatter:on -->
+        <div class="z-10 relative flex flex-col items-center" style="margin-top: 40px;">
+            <h2 class="text-xl font-semibold">Company Census History - {{ data.month_id }}</h2>
+            <div class="mt-1 text-4xl sm:text-7xl font-extrabold tracking-tight leading-tight text-center">
+                {{ data.company_name }}
+            </div>
+            <div class="max-w-2xl mt-6 sm:text-2xl text-center tracking-tight text-secondary">
+                {{ data.website }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+
+<div class="container-fluid p-1" style="margin-top: 10px;">
+    <div class="row">
+        <div class="col-xl-2">
+
+        </div>
+        <div class="col-xl-7">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-2">
+            &nbsp;
+     </div>
+     <div class="col-md-12 col-xl-10">
+         <button style="margin-bottom: 20px;" class="btn btn-primary" [routerLink]="['/company-dashboard',data.id]"> Go Back </button>
+         <button style="margin-left: 20px; margin-bottom: 20px;" *ngFor="let m of data.monthlist" class="btn btn-warning" [routerLink]="['/census-history',data.id,m.value]">{{ m.name }}</button>
+        </div>        
+    </div>
+<div class="row">
+    <div class="col-xl-2">
+        &nbsp;
+ </div>
+ <div class="col-md-12 col-xl-10">
+    <div class="card card-body" style="margin-top:20px;">
+        <div class="row">
+            <div class="col-xl-10">
+                <h2 style="font-size: 24px;"><b>{{ data.month_id }} - Active Members (includes additions)</b></h2>                
+            </div>
+            <div class="col-xl-2">
+                <button (click)="showInvoice(data.id,data.month_id)"  class="btn btn-primary">Invoice</button>               
+            </div>
+        </div>
+        <div class="table-responsive">
+        <div class="col-lg-6 py-2">
+            Search: <input style="max-width:320px;" class="form-control" type="text" id="term" name="term" [(ngModel)]="term"> 
+        </div>
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <th>
+                        Employee ID
+                    </th>
+                    <th>
+                        Dependent ID
+                    </th>
+                    <th>
+                        Last Name
+                    </th>
+                    <th>
+                        First Name
+                    </th>
+                    <th>
+                        Middle Initial
+                    </th>
+                    <th>
+                        Gender
+                    </th>
+                    <th>
+                        DOB
+                    </th>
+                    <th>
+                        Plan
+                    </th>
+                    <th>
+                        Eff Date
+                    </th>
+                    <th>
+                        Term Date
+                    </th>
+                    <th>
+                        Coverage
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>            
+                    </th>
+                </tr>
+            </thead>
+                    <tbody>
+    <tr *ngFor="let m of data.census | filter: term ">
+        <td>
+            {{ m.employee_code }}
+        </td>
+        <td>
+            {{ m.dependent_code }}
+        </td>
+        <td>
+            {{ m.last_name }}
+        </td>
+        <td>
+            {{ m.first_name }}
+        </td>
+        <td>
+            {{ m.middle_initial }}
+        </td>
+        <td>
+            {{ m.gender }}
+        </td>
+        <td>
+            {{ m.dob }}
+        </td>
+        <td>
+            {{ m.client_plan }}
+        </td>
+        <td>
+            {{ m.eff_dt }}
+        </td>
+        <td>
+            {{ m.term_dt }}
+        </td>
+        <td>
+            {{ m.coverage_level }}
+        </td>
+        <td>
+            ${{ m.coverage_price }}
+        </td>
+        <td>
+            <button  *ngIf="m.last_name!=''" [routerLink]="['/employee-dashboard',m.employee_id]" class="btn btn-warning">Dashboard</button>
+        </td>
+    </tr>
+</tbody>
+</table>
+</div> <!-- table responsive -->
+</div> <!-- Card body -->
+</div> <!-- Col -->
+
+
+</div>
+
+
+</div>   <!-- CONTAINER -->
+
+</div>

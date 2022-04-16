@@ -1,0 +1,717 @@
+<!-- Loading bar -->
+<fuse-loading-bar></fuse-loading-bar>
+<!-- Navigation -->
+<fuse-vertical-navigation
+    class="dark bg-gray-900 print:hidden"
+    [mode]="isScreenSmall ? 'over' : 'side'"
+    [name]="'mainNavigation'"
+    [navigation]="navigation.default"
+    [opened]="!isScreenSmall">
+    <!-- Navigation header hook -->
+    <ng-container fuseVerticalNavigationContentHeader>
+        <div class="flex items-center w-full p-4 pl-6">
+            <!-- Logo -->
+            <div class="flex items-center justify-center">
+                <img
+                    class="w-8"
+                    src="assets/images/logo/logo.png">
+            </div>
+            <!-- Components -->
+            <div class="flex items-center ml-auto">
+                <notifications></notifications>
+                <user [showAvatar]="false"></user>
+            </div>
+        </div>
+        <!-- User -->
+        <div class="flex flex-col items-center w-full p-4">
+            <div class="relative w-24 h-24">
+                <img
+                    class="w-full h-full rounded-full"
+                    *ngIf="user.avatar"
+                    [src]="user.avatar"
+                    alt="User avatar">
+                <mat-icon
+                    class="icon-size-24"
+                    *ngIf="!user.avatar"
+                    [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+            </div>
+            <div class="flex flex-col items-center justify-center w-full mt-6">
+                <div class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden text-center leading-normal font-medium">
+                    {{user.name}}
+                </div>
+                <div class="w-full mt-0.5 whitespace-nowrap overflow-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary">
+                    {{user.email}}
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <!-- Navigation footer hook -->
+    <ng-container fuseVerticalNavigationContentFooter>
+        <div class="flex flex-0 items-center justify-center h-16 pr-6 pl-2 mt-2 mb-4 opacity-12">
+            <img
+                class="max-w-36"
+                src="assets/images/logo/logo-text-on-dark.png">
+        </div>
+    </ng-container>
+</fuse-vertical-navigation>
+
+<div
+    class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto"
+    cdkScrollable>
+<!--- THIS IS MOVED INSIDE THE MAIN SECTION AFTER THE FIRST LINE -->
+<div class="relative flex flex-0 items-center w-full h-16 px-4 md:px-6 z-49 shadow dark:shadow-none dark:border-b bg-card dark:bg-transparent print:hidden">
+    <!-- Navigation toggle button -->
+    <button
+        mat-icon-button
+        (click)="toggleNavigation('mainNavigation')">
+        <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
+    </button>
+    <!-- Components -->
+    <div class="flex items-center pl-2 ml-auto space-x-0.5 sm:space-x-2">
+        <languages></languages>
+        <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
+        <search [appearance]="'bar'"></search>
+        <shortcuts></shortcuts>
+        <messages></messages>
+    </div>
+</div>
+    <!-- Header -->
+    <div class="relative flex-0 py-8 px-4 sm:p-16 overflow-hidden bg-gray-800 dark"  style="padding-bottom: 20px !important; padding-top: 20px !important;">
+        <!-- Background - @formatter:off -->
+        <!-- Rings -->
+        <svg class="absolute inset-0 pointer-events-none"
+             viewBox="0 0 960 540" width="100%" height="100%" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+            <g class="text-gray-700 opacity-25" fill="none" stroke="currentColor" stroke-width="100">
+                <circle r="234" cx="196" cy="23"></circle>
+                <circle r="234" cx="790" cy="491"></circle>
+            </g>
+        </svg>
+        <!-- @formatter:on -->
+        <div class="z-10 relative flex flex-col items-center" style="margin-top: 40px;">
+            <h2 class="text-xl font-semibold">Employee Dashboard</h2>
+            <div class="mt-1 text-4xl sm:text-7xl font-extrabold tracking-tight leading-tight text-center">
+                {{ data.last_name }}, {{ data.first_name }}
+            </div>
+            <div class="max-w-2xl mt-6 sm:text-2xl text-center tracking-tight text-secondary">
+                {{ data.email }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+
+<div class="container-fluid p-1" style="margin-top: 10px;">
+    <div class="row">
+        <div class="col-xl-2">
+
+        </div>
+        <div class="col-xl-7">
+            <div style="margin-top: 10px !important;">
+                <a class="inline-flex items-center leading-6 text-primary hover:underline" [routerLink]="['/sadmin']"><span class="inline-flex items-center"><mat-icon role="img" class="mat-icon notranslate icon-size-5 text-current mat-icon-no-color" aria-hidden="true" data-mat-icon-type="svg" data-mat-icon-name="arrow-sm-left" data-mat-icon-namespace="heroicons_solid"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" fit="" height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false">
+                    <path fill-rule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path>
+                </svg></mat-icon><span class="ml-1.5 font-medium leading-5">Back to Dashboard</span></span></a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-2">
+ &nbsp;
+        </div>
+        <div class="col-md-12 col-xl-4">
+            <div class="card card-body">            
+                <div class="row">
+                    <div class="col-12">
+                        <button *ngIf="data.user['org_id']!=17" class="btn btn-primary" (click)="toggleEdit()">Edit Employee</button>
+                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+</div>
+</div>
+<div class="row">
+<div class="table table-responsive">
+    <thead>
+
+    </thead>
+    <tbody>
+        <tr>
+            <th>&nbsp;</th>
+            <td>&nbsp;</td>
+        </tr>
+        <tr style="background-color:lightsteelblue">
+            <th>NuAxess Company Name:</th>
+            <td>{{ data.company.company_name }}</td>
+        </tr>
+        <tr style="background-color: linen;">
+            <th>APA Company Name:</th>
+            <td>{{ data.census.company_name }}</td>
+        </tr> 
+        <tr style="background-color: linen;">
+            <th>Alt APA Company:</th>
+            <td>{{ data.census.alt_company_name }}</td>
+        </tr>    
+        <tr>
+            <th>Employee Status:</th>
+            <td>{{ data.employee_status }}</td>
+        </tr>        
+        <tr>
+            <th>ID:</th>
+            <td>{{ data.id }}</td>
+        </tr>     
+        <tr>
+            <th>First Name:</th>
+            <td>
+                <input *ngIf="editing=='Y'" style="max-width: 250px;" type="text" class="form-control" id="first_name" name="first_name" [(ngModel)]="data.formData['first_name']">
+                <span *ngIf="editing=='N'">{{ data.first_name }}</span>
+            </td>
+        </tr>
+        <tr>
+            <th>Middle Name:</th>
+            <td>
+                <input *ngIf="editing=='Y'" style="max-width: 250px;" type="text" class="form-control" id="middle_name" name="middle_name" [(ngModel)]="data.formData['middle_name']">
+                <span *ngIf="editing=='N'">{{ data.middle_name }}</span>
+            </td>
+        </tr>
+        <tr>
+            <th>Last Name:</th>
+            <td>
+                <input *ngIf="editing=='Y'" style="max-width: 250px;" type="text" class="form-control" id="last_name" name="last_name" [(ngModel)]="data.formData['last_name']">
+                <span *ngIf="editing=='N'">{{ data.last_name }}</span>
+            </td>
+        </tr>
+        <tr>
+            <th>Email:</th>
+            <td>
+                <input *ngIf="editing=='Y'" style="max-width: 250px;" type="text" class="form-control" id="email_name" name="email_name" [(ngModel)]="data.formData['email_name']">
+                <span *ngIf="editing=='N'">{{ data.email_name }}</span>
+            </td>
+        </tr>
+        <tr>
+            <th>Date Hired:</th>
+            <td>
+                <input *ngIf="editing=='Y'" style="max-width: 250px;" type="text" class="form-control" id="date_hired" name="date_hired" [(ngModel)]="data.formData['date_hired']">
+                <span *ngIf="editing=='N'">{{ data.date_hired }}</span>
+            </td>
+        </tr>
+        <tr>
+            <th>Date Enrolled:</th>
+            <td>
+                <input *ngIf="editing=='Y'" style="max-width: 250px;" type="text" class="form-control" id="date_enrolled" name="date_enrolled" [(ngModel)]="data.formData['date_enrolled']">
+                <span *ngIf="editing=='N'">{{ data.date_enrolled }}</span>
+            </td>
+        </tr>
+        <tr>
+            <th>Marital Status:</th>
+            <td>
+                <select 
+                    *ngIf="editing=='Y'" 
+                    style="max-width: 250px;" 
+                    type="text" 
+                    class="form-control" 
+                    id="marital_status" 
+                    name="marital_status" 
+                    [(ngModel)]="data.formData['marital_status']">
+                    <option value="">Not Selected</option>
+                    <option value="Single">Single</option>
+                    <option value="Married">Married</option>
+                    <option value="Divorced">Divorced</option>
+                    <option value="Widowed">Widowed</option>
+                </select>
+                <span *ngIf="editing=='N'">{{ data.marital_status }}</span>
+            </td>
+        </tr>
+        <tr>
+            <th>Gender:</th>
+            <td>
+                <select 
+                    *ngIf="editing=='Y'" 
+                    style="max-width: 250px;" 
+                    type="text" 
+                    class="form-control" 
+                    id="gender" 
+                    name="gender" 
+                    [(ngModel)]="data.formData['gender']">
+                    <option value="">Not Selected</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Non-binary">Non-Binary</option>
+                </select>
+                <span *ngIf="editing=='N'">{{ data.gender }}</span>
+            </td>
+        </tr>
+        <tr>
+            <th>Date of Birth:</th>
+            <td>
+                <input *ngIf="editing=='Y'" style="max-width: 250px;" type="text" class="form-control" id="date_of_birth" name="date_of_birth" [(ngModel)]="data.formData['date_of_birth']">
+                <span *ngIf="editing=='N'">{{ data.date_of_birth }}</span>
+            </td>
+        </tr>
+        <tr>
+            <th>Social Security Number:</th>
+            <td>
+                <input *ngIf="editing=='Y'" style="max-width: 250px;" type="text" class="form-control" id="social_security_number" name="social_security_number" [(ngModel)]="data.formData['social_security_number']">
+                <span *ngIf="editing=='N'">{{ data.social_security_number }}</span>
+            </td>
+        </tr>
+        <tr>
+            <th>Address:</th>
+            <td>
+                <input *ngIf="editing=='Y'" style="max-width: 250px;" type="text" class="form-control" id="address" name="address" [(ngModel)]="data.formData['address']">
+                <span *ngIf="editing=='N'">{{ data.address }}</span>
+            </td>
+        </tr>
+        <tr>
+            <th>City:</th>
+            <td>
+                <input *ngIf="editing=='Y'" style="max-width: 250px;" type="text" class="form-control" id="city" name="city" [(ngModel)]="data.formData['city']">
+                <span *ngIf="editing=='N'">{{ data.city }}</span>
+            </td>
+        </tr>
+        <tr>
+            <th>State:</th>
+            <td>
+                <input *ngIf="editing=='Y'" style="max-width: 250px;" type="text" class="form-control" id="state" name="state" [(ngModel)]="data.formData['state']">
+                <span *ngIf="editing=='N'">{{ data.state }}</span>
+            </td>
+        </tr>
+        <tr>
+            <th>Zip:</th>
+            <td>
+                <input *ngIf="editing=='Y'" style="max-width: 250px;" type="text" class="form-control" id="zip" name="zip" [(ngModel)]="data.formData['zip']">
+                <span *ngIf="editing=='N'">{{ data.zip }}</span>
+            </td>
+        </tr>
+        <tr>
+            <th>Status:</th>
+            <td>
+                <input *ngIf="editing=='Y'" style="max-width: 250px;" type="text" class="form-control" id="employee_status" name="employee_status" [(ngModel)]="data.formData['employee_status']">
+                <span *ngIf="editing=='N'">{{ data.employee_status }}</span>
+            </td>
+        </tr>
+        <tr>
+            <th>Annual Salary:</th>
+            <td>
+                <input *ngIf="editing=='Y'" style="max-width: 250px;" type="text" class="form-control" id="annual_salary" name="annual_salary" [(ngModel)]="data.formData['annual_salary']">
+                <span *ngIf="editing=='N'">{{ data.annual_salary }}</span>
+            </td>
+        </tr>
+        <tr>
+            <th>Employment Type:</th>
+            <td>
+                <select 
+                    *ngIf="editing=='Y'" 
+                    style="max-width: 250px;" 
+                    type="text" 
+                    class="form-control" 
+                    id="employement_type" 
+                    name="employement_type" 
+                    [(ngModel)]="data.formData['employment_type']">
+                    <option value="">Not Selected</option>
+                    <option value="Full-time">Full Time</option>
+                    <option value="Part-time">Part Time</option>
+                </select>
+                <span *ngIf="editing=='N'">{{ data.employment_type }}</span>
+            </td>
+        </tr>
+        <tr>
+            <th>Work Status:</th>
+            <td>
+                <select 
+                *ngIf="editing=='Y'" 
+                style="max-width: 250px;" 
+                type="text" 
+                class="form-control" 
+                id="work_status" 
+                name="work_status" 
+                [(ngModel)]="data.formData['marital_status']">
+                <option value="">Not Selected</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+                <span *ngIf="editing=='N'">{{ data.work_status }}</span>
+            </td>
+        </tr>
+        <tr>
+            <th>Work Role:</th>
+            <td>
+                <input *ngIf="editing=='Y'" style="max-width: 250px;" type="text" class="form-control" id="work_role" name="work_role" [(ngModel)]="data.formData['work_role']">
+                <span *ngIf="editing=='N'">{{ data.work_role }}</span>
+            </td>
+        </tr>
+        <tr>
+            <th>Contribution Class Level:</th>
+            <td>
+                <select 
+                *ngIf="editing=='Y'" 
+                style="max-width: 250px;" 
+                type="text" 
+                class="form-control" 
+                id="contribution_level_id" 
+                name="contribution_level_id" 
+                [(ngModel)]="data.formData['contribution_level_id']">
+                <option value="0">Not Selected</option>
+                <option *ngFor="let h of data.contribution_levels" value="{{ h.id }}">{{ h.class_level }}</option>
+            </select>
+                <span *ngIf="editing=='N'">{{ data.contribution_class_level }}</span>
+            </td>
+        </tr>
+        <tr *ngIf="editing=='Y'">
+            <th></th>
+            <td>
+                <button class="btn btn-primary" (click)="postForm()">Save</button>
+                <button style="margin-left: 10px;" class="btn" (click)="toggleEdit()">Close</button>
+            </td>
+        </tr>
+    </tbody>
+</div>
+</div>
+            </div>
+        </div>
+        <div class="col-md-12 col-xl-5">
+            <!--
+<div *ngIf="data.users.length>0" class="card card-body">
+            <div class="table-responsive">
+                <div class="text-2xl font-semibold leading-tight">User Account</div>
+                <fuse-card *ngFor="let m of data.users" class="flex flex-col w-full filter-article  px-8 pt-6 pb-4  ng-star-inserted">
+                    <div class="flex items-center ng-tns-c227-444 ng-star-inserted">
+                        <img src="assets/images/cards/13-160x160.jpg" alt="Card cover image" class="w-20 rounded-lg object-cover">
+                        <div class="flex flex-col ml-6">
+                            <div class="text-2xl font-semibold leading-tight">{{ m.full_name }}</div>
+                            <div class="text-secondary font-medium text-md">{{ m.email }}</div>
+                        </div>
+                    </div>
+                    <div class="mt-6 ng-tns-c227-444 ng-star-inserted">{{ m.phone_mobile }}</div>
+                    <div class="mt-3 -mx-3 ng-tns-c227-444 ng-star-inserted">
+                    </div>
+                </fuse-card>
+                <button  [routerLink]="['/edit-user',data.user_id]" class="btn btn-warning">Edit</button>
+                <button style="margin-left: 20px;" [routerLink]="['/add-quote-request',data.id]" class="btn btn-primary" (click)="addEmployee()">Reset Password</button>
+                <button style="margin-left: 20px;" [routerLink]="['/add-quote-request',data.id]" class="btn btn-primary" (click)="addEmployee()">Send Notification</button>
+            </div>
+</div>
+<div *ngIf="data.users.length==0&&data.user.org_id!='17'" class="card card-body">
+    <div class="table-responsive">
+        <div class="text-2xl font-semibold leading-tight">User Account</div>
+        <fuse-card *ngFor="let m of data.users" class="flex flex-col w-full filter-article  px-8 pt-6 pb-4  ng-star-inserted">
+            <div class="mt-6 ng-tns-c227-444 ng-star-inserted">{{ m.phone_mobile }}</div>
+        </fuse-card>
+        <button  [routerLink]="['/edit-user',data.user_id]" class="btn btn-warning">Create User Account</button>
+    </div>
+</div> -->
+<div class="card card-body">            
+
+    <div class="row">
+        <h2 class="h2" style="font-size: 24px;">Documents</h2>
+    <div class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Note</th>
+                <th></th>
+            </tr>        
+        </thead>
+        <tbody>
+        <tr *ngFor="let m of data.docs" >
+                <th>{{ m.create_timestamp }}</th>
+                <td>{{ m.doc_title }}</td>
+                <td>{{ m.dsc }}</td>
+                <td><button class="btn btn-warning" (click)="showDoc(m.key)">View</button></td>
+        </tr> 
+        </tbody>
+    </div>
+    </div>
+        <!-- Upload Grab #1 -->
+    <div *ngIf="uploading=='N'" class="row">
+        <div class="col-12">
+            <button class="btn btn-primary" (click)="showUpload()">Upload Documents</button>
+        </div>
+    </div>
+    <div *ngIf="uploading=='Y'"  class="card card-body">
+        <h2 style="font-size: 24px;"><b>Select File to Upload</b></h2>
+        <div class="row">
+            <div class="col-xl-4"> &nbsp; </div>            
+        </div>
+        <div class="row">
+            <div class="col-xl-4">Document Type</div>
+            <div class="col-xl-4">
+            <select class="form-control" [(ngModel)]="doc_title" name="doc_title" id="doc_title">
+                <option value="Medical ID Card">Medical ID Card</option>
+                <option value="Dental/Vision ID Card">Dental / Vision ID Card</option>
+                <option value="Other">Other</option>
+            </select> 
+        </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-4">Note/Description</div>
+            <div class="col-xl-4">
+            <input type="text" class="form-control" [(ngModel)]="dsc" name="dsc" id="dsc">
+        </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-4"> &nbsp; </div>            
+        </div>
+        <div class="mc">
+            <input [formControl]="file" (change)="fileChange(index,$event)" type="file" placeholder="File">
+            <br>
+            <button style="margin-top:20px" (click)="uploadFile()" mat-raised-button color="primary">
+                Upload
+            </button>
+            <button style="margin-top:20px; margin-left:20px;" (click)="showUpload()" mat-raised-button color="primary">
+                Upload
+            </button>
+        </div>
+        </div>
+        <!-- End Upload Grab #1 -->
+</div>
+<div class="card card-body"  style="margin-top:20px;">
+    <div class="table-responsive">
+        <h2 class="h2" style="font-size: 24px;">Benefits</h2>
+        <table class="table table-responsive table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Plan
+                    </th>
+                    <th>
+                        Eff Dt
+                    </th>
+                    <th>
+                        Term Dt
+                    </th>
+                    <th>
+                        Coverage Level
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr *ngFor="let m of data.census">
+        <td>
+            {{ m.client_plan }}
+        </td>
+        <td>
+            {{ m.eff_dt }}
+        </td>
+        <td>
+            {{ m.term_dt }}
+        </td>
+        <td>
+            {{ m.coverage_level }}
+        </td>
+        <td>
+            {{ m.coverage_price }}
+        </td>
+    </tr>
+            </tbody>
+        </table>
+     </div>
+</div>
+<div *ngIf="showterm=='Y'" class="card card-body"  style="margin-top:20px;">
+    <div class="table-responsive">
+        <h2 class="h2" style="font-size: 24px;">Schedule Plan Termination</h2>
+        <form class="flex flex-col mt-8 p-8 pb-4 bg-card rounded-2xl shadow overflow-hidden">
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [ngClass]="formFieldHelpers"
+                    class="flex-auto gt-xs:pr-3">
+                    <mat-label>Plan</mat-label>
+                    <input matInput id="plan_id" name="plan_id" [(ngModel)]="data.termData['plan_id']">
+                    <mat-icon
+                        class="icon-size-5"
+                        matSuffix
+                        [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                </mat-form-field>
+                <mat-form-field
+                [ngClass]="formFieldHelpers"
+                class="flex-auto gt-xs:pr-3">
+                <mat-label>Termination Effective Date</mat-label>
+                <mat-select  id="term_date" name="term_date" [(ngModel)]="data.termData['term_date']">
+                    <mat-option *ngFor="let m of data.termdts" value="{{ m }}">{{ m }}</mat-option>
+                </mat-select>
+                <mat-icon
+                    class="icon-size-5"
+                    matPrefix
+                    [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+            </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+            </div>
+            <div class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700">
+                <button (click)="termEmployee(m.id, '')" mat-button>
+                    Cancel
+                </button>
+                <button
+                    class="px-6 ml-3"
+                    mat-flat-button
+                    [color]="'primary'" (click)="postTerm()">
+                    Schedule Terminaton
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card card-body"  style="margin-top:20px;">
+    <div class="table-responsive">
+        <h2 class="h2" style="font-size: 24px;">Family</h2>
+        <table class="table table-responsive table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Gender
+                    </th>
+                    <th>
+                        Relationship
+                    </th>
+                    <th>
+                        Date of Birth
+                    </th>
+                    <th>
+    
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr *ngFor="let m of data.family">
+        <td>
+            {{ m.id }}
+        </td>
+        <td>
+            {{ m.first_name }} {{ m.middle_name }} {{ m.last_name }}
+        </td>
+        <td>
+            {{ m.gender }}
+        </td>
+        <td>
+            {{ m.relation_to_insured }}
+        </td>
+        <td>
+            {{ m.date_of_birth }}
+        </td>
+    </tr>
+            </tbody>
+        </table>
+     </div>
+</div>
+<div *ngIf="addF=='Y'">
+    <div class="card card-body">
+        <div class="row">
+            <h2 class="h2" style="font-size: 24px;">Add Family Member</h2>
+        </div>
+        <form class="flex flex-col mt-8 p-8 pb-4 bg-card rounded-2xl shadow overflow-hidden">
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [ngClass]="formFieldHelpers"
+                    class="flex-auto gt-xs:pr-3">
+                    <mat-label>First Name</mat-label>
+                    <input matInput id="first_name" name="first_name" [(ngModel)]="data.familyData['first_name']">
+                    <mat-icon
+                        class="icon-size-5"
+                        matSuffix
+                        [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                </mat-form-field>
+                <mat-form-field
+                    [ngClass]="formFieldHelpers"
+                    class="flex-auto gt-xs:pl-3">
+                    <mat-label>Middle Name</mat-label>
+                    <input matInput id="middle_name" name="middle_name" [(ngModel)]="data.familyData['middle_name']">
+                    <mat-icon
+                        class="icon-size-5"
+                        matSuffix
+                        [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [ngClass]="formFieldHelpers"
+                    class="flex-auto gt-xs:pr-3">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput id="last_name" name="last_name" [(ngModel)]="data.familyData['last_name']">
+                    <mat-icon
+                        class="icon-size-5"
+                        matSuffix
+                        [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                </mat-form-field>
+                <mat-form-field
+                    [ngClass]="formFieldHelpers"
+                    class="flex-auto gt-xs:pl-3">
+                    <mat-label>Relationship</mat-label>
+                    <input matInput id="member_type" name="member_type" [(ngModel)]="data.familyData['member_type']">
+                    <mat-icon
+                        class="icon-size-5"
+                        matSuffix
+                        [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [ngClass]="formFieldHelpers"
+                    class="flex-auto gt-xs:pr-3">
+                    <mat-label>Gender</mat-label>
+                    <input matInput id="gender" name="gender" [(ngModel)]="data.familyData['gender']">
+                    <mat-icon
+                        class="icon-size-5"
+                        matSuffix
+                        [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                </mat-form-field>
+                <mat-form-field
+                    [ngClass]="formFieldHelpers"
+                    class="flex-auto gt-xs:pl-3">
+                    <mat-label>Date of Birth</mat-label>
+                    <input matInput id="date_of_birth" name="date_of_birth" [(ngModel)]="data.familyData['date_of_birth']">
+                    <mat-icon
+                        class="icon-size-5"
+                        matSuffix
+                        [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col gt-xs:flex-row">
+                <mat-form-field
+                    [ngClass]="formFieldHelpers"
+                    class="flex-auto gt-xs:pr-3">
+                    <mat-label>Height</mat-label>
+                    <input matInput id="" name="height" [(ngModel)]="data.familyData['height']">
+                    <mat-icon
+                        class="icon-size-5"
+                        matSuffix
+                        [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                </mat-form-field>
+                <mat-form-field
+                    [ngClass]="formFieldHelpers"
+                    class="flex-auto gt-xs:pl-3">
+                    <mat-label>Weight</mat-label>
+                    <input matInput id="weight" name="weight" [(ngModel)]="data.familyData['weight']">
+                    <mat-icon
+                        class="icon-size-5"
+                        matSuffix
+                        [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700">
+                <button (click)="addFamily()" mat-button>
+                    Cancel
+                </button>
+                <button
+                    class="px-6 ml-3"
+                    mat-flat-button
+                    [color]="'primary'" (click)="postForm()">
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+        </div>
+    </div> <!-- ROW -->
+</div>   <!-- CONTAINER -->
+</div>

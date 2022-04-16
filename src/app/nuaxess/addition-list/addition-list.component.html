@@ -1,0 +1,203 @@
+<fuse-loading-bar></fuse-loading-bar>
+<fuse-vertical-navigation
+    class="dark bg-gray-900 print:hidden"
+    [mode]="isScreenSmall ? 'over' : 'side'"
+    [name]="'mainNavigation'"
+    [navigation]="navigation.default"
+    [opened]="!isScreenSmall">
+    <ng-container fuseVerticalNavigationContentHeader>
+        <div class="flex items-center w-full p-4 pl-6">
+            <div class="flex items-center justify-center">
+                <img
+                    class="w-8"
+                    src="assets/images/logo/logo.png">
+            </div>
+            <div class="flex items-center ml-auto">
+                <notifications></notifications>
+                <user [showAvatar]="false"></user>
+            </div>
+        </div>
+        <div class="flex flex-col items-center w-full p-4">
+            <div class="relative w-24 h-24">
+                <img
+                    class="w-full h-full rounded-full"
+                    *ngIf="user.avatar"
+                    [src]="user.avatar"
+                    alt="User avatar">
+                <mat-icon
+                    class="icon-size-24"
+                    *ngIf="!user.avatar"
+                    [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+            </div>
+            <div class="flex flex-col items-center justify-center w-full mt-6">
+                <div class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden text-center leading-normal font-medium">
+                    {{user.name}}
+                </div>
+                <div class="w-full mt-0.5 whitespace-nowrap overflow-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary">
+                    {{user.email}}
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <!-- Navigation footer hook -->
+    <ng-container fuseVerticalNavigationContentFooter>
+        <div class="flex flex-0 items-center justify-center h-16 pr-6 pl-2 mt-2 mb-4 opacity-12">
+            <img
+                class="max-w-36"
+                src="assets/images/logo/logo-text-on-dark.png">
+        </div>
+    </ng-container>
+</fuse-vertical-navigation>
+
+<!-- Wrapper -->
+<div class="flex flex-col flex-auto w-full min-w-0">
+
+    <!-- Header -->
+    <div class="relative flex flex-0 items-center w-full h-16 px-4 md:px-6 z-49 shadow dark:shadow-none dark:border-b bg-card dark:bg-transparent print:hidden">
+        <!-- Navigation toggle button -->
+        <button
+            mat-icon-button
+            (click)="toggleNavigation('mainNavigation')">
+            <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
+        </button>
+        <!-- Components -->
+        <div class="flex items-center pl-2 ml-auto space-x-0.5 sm:space-x-2">
+            <languages></languages>
+            <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
+            <search [appearance]="'bar'"></search>
+            <shortcuts></shortcuts>
+            <messages></messages>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="flex flex-col flex-auto">
+        <!-- *ngIf="true" hack is required here for router-outlet to work correctly.
+             Otherwise, layout changes won't be registered and the view won't be updated! -->
+             <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 p-4">
+                        <h1 style="font-size: 24px; font-weight: bold;">Member Additions</h1>
+                    </div>
+                </div>
+            </div>
+             <div class="flex flex-col flex-auto min-w-0">
+
+                <!-- Header -->
+            
+
+                <div class="flex-auto border-t -mt-px pt-4 sm:pt-6">
+                    <div class="w-full max-w-screen-xl mx-auto">
+                        <!-- Tabs -->
+                    </div>
+                        <div class="card card-body" style="margin-top: 20px;">
+                                <div class="row">
+                                    <div class="col-md-12 col-xl-12">
+                                        <div class="card card-body" style="margin-top:20px;">
+                                            <div class="table-responsive">
+                                                <h2 style="font-size: 24px;"><b>Members Added as of {{ data.month_id2 }}</b></h2>
+                                            <div class="col-lg-6 py-2">
+                                                Search: <input style="max-width:320px;" class="form-control" type="text" id="term" name="term" [(ngModel)]="term"> 
+                                            </div>
+                                            <table class="table table-responsive">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Employee ID
+                                                        </th>
+                                                        <th>
+                                                            Last Name
+                                                        </th>
+                                                        <th>
+                                                            First Name
+                                                        </th>
+                                                        <th>
+                                                            Middle Initial
+                                                        </th>
+                                                        <th>
+                                                            Gender
+                                                        </th>
+                                                        <th>
+                                                            DOB
+                                                        </th>
+                                                        <th>
+                                                            Plan
+                                                        </th>
+                                                        <th>
+                                                            Eff Date
+                                                        </th>
+                                                        <th>
+                                                            Term Date
+                                                        </th>
+                                                        <th>
+                                                            Coverage
+                                                        </th>
+                                                        <th>
+                                                            Price
+                                                        </th>
+                                                        <th>            
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                        <tbody>
+                                        <tr *ngFor="let m of data.census | filter: term ">
+                                            <td>
+                                                {{ m.employee_code }}
+                                            </td>
+                                            <td>
+                                                {{ m.last_name }}
+                                            </td>
+                                            <td>
+                                                {{ m.first_name }}
+                                            </td>
+                                            <td>
+                                                {{ m.middle_initial }}
+                                            </td>
+                                            <td>
+                                                {{ m.gender }}
+                                            </td>
+                                            <td>
+                                                {{ m.dob }}
+                                            </td>
+                                            <td>
+                                                {{ m.client_plan }}
+                                            </td>
+                                            <td>
+                                                {{ m.eff_dt }}
+                                            </td>
+                                            <td>
+                                                {{ m.term_dt }}
+                                            </td>
+                                            <td>
+                                                {{ m.coverage_level }}
+                                            </td>
+                                            <td>
+                                                {{ m.coverage_price }}
+                                            </td>
+                                            <td>
+                                                <button  *ngIf="m.last_name!=''" [routerLink]="['/employee-dashboard',m.employee_id]" class="btn btn-warning">Dashboard</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                    </div> <!-- table responsive -->
+                                    </div> <!-- Card body -->
+                                    </div> <!-- Col -->
+                            
+                                  
+                        </div>
+                        </div>
+                             
+              
+                </div>
+            
+            </div>
+            
+    </div>
+
+    <!-- Footer -->
+    <!--<div class="relative flex flex-0 items-center justify-start w-full h-14 px-4 md:px-6 z-49 border-t bg-card dark:bg-transparent print:hidden">
+        <span class="font-medium text-secondary">Fuse &copy; {{currentYear}}</span>
+    </div>-->
+
+</div>

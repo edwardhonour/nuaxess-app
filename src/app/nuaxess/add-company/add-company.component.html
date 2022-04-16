@@ -1,0 +1,313 @@
+<!-- Loading bar -->
+<fuse-loading-bar></fuse-loading-bar>
+<!-- Navigation -->
+<fuse-vertical-navigation
+    class="dark bg-gray-900 print:hidden"
+    [mode]="isScreenSmall ? 'over' : 'side'"
+    [name]="'mainNavigation'"
+    [navigation]="navigation.default"
+    [opened]="!isScreenSmall">
+    <!-- Navigation header hook -->
+    <ng-container fuseVerticalNavigationContentHeader>
+        <div class="flex items-center w-full p-4 pl-6">
+            <!-- Logo -->
+            <div class="flex items-center justify-center">
+                <img
+                    class="w-8"
+                    src="assets/images/logo/logo.png">
+            </div>
+            <!-- Components -->
+            <div class="flex items-center ml-auto">
+                <notifications></notifications>
+                <user [showAvatar]="false"></user>
+            </div>
+        </div>
+        <!-- User -->
+        <div class="flex flex-col items-center w-full p-4">
+            <div class="relative w-24 h-24">
+                <img
+                    class="w-full h-full rounded-full"
+                    *ngIf="user.avatar"
+                    [src]="user.avatar"
+                    alt="User avatar">
+                <mat-icon
+                    class="icon-size-24"
+                    *ngIf="!user.avatar"
+                    [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+            </div>
+            <div class="flex flex-col items-center justify-center w-full mt-6">
+                <div class="w-full whitespace-nowrap overflow-ellipsis overflow-hidden text-center leading-normal font-medium">
+                    {{user.name}}
+                </div>
+                <div class="w-full mt-0.5 whitespace-nowrap overflow-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary">
+                    {{user.email}}
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <!-- Navigation footer hook -->
+    <ng-container fuseVerticalNavigationContentFooter>
+        <div class="flex flex-0 items-center justify-center h-16 pr-6 pl-2 mt-2 mb-4 opacity-12">
+            <img
+                class="max-w-36"
+                src="assets/images/logo/logo-text-on-dark.png">
+        </div>
+    </ng-container>
+</fuse-vertical-navigation>
+
+<div class="flex flex-col flex-auto min-w-0">
+<!--- THIS IS MOVED INSIDE THE MAIN SECTION AFTER THE FIRST LINE -->
+<div class="relative flex flex-0 items-center w-full h-16 px-4 md:px-6 z-49 shadow dark:shadow-none dark:border-b bg-card dark:bg-transparent print:hidden">
+    <!-- Navigation toggle button -->
+    <button
+        mat-icon-button
+        (click)="toggleNavigation('mainNavigation')">
+        <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
+    </button>
+    <!-- Components -->
+    <div class="flex items-center pl-2 ml-auto space-x-0.5 sm:space-x-2">
+        <languages></languages>
+        <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
+        <search [appearance]="'bar'"></search>
+        <shortcuts></shortcuts>
+        <messages></messages>
+    </div>
+</div>
+<!--- THIS IS MOVED INSIDE THE MAIN SECTION AFTER THE FIRST LINE -->
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between p-6 sm:py-8 sm:px-10 border-b bg-card dark:bg-transparent">
+        <div class="flex-1 min-w-0">
+            <div class="mt-2">
+                <h2 style="margin-bottom: 20px;" class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                    Add Company / Prospect
+                </h2>
+                <p>Enter as much information about the prospect as you know at this time.  You will be able to add information later if necessary. The only required field is Company Name.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="row">
+        <div class="col-xl-5">
+            <form class="flex flex-col mt-8 p-8 pb-4 bg-card rounded-2xl shadow overflow-hidden"  autocomplete="off">
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field
+                        [ngClass]="formFieldHelpers"
+                        class="flex-auto gt-xs:pr-3">
+                        <mat-label>Company Name</mat-label>
+                        <input matInput id="company_name" name="company_name" [(ngModel)]="data.formData['company_name']" autocomplete="new-password">
+                        <mat-icon
+                            class="icon-size-5"
+                            matSuffix
+                            [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                    </mat-form-field>
+                    <div *ngIf="data.user['role']=='sadmin'||data.formData['role']=='user'" class="flex flex-col gt-xs:flex-row">
+                        <mat-form-field
+                            [ngClass]="formFieldHelpers"
+                            class="flex-auto gt-xs:pr-3">
+                            <mat-label>Organization</mat-label>
+                            <mat-select  id="org_id" name="org_id" [(ngModel)]="data.formData['org_id']">
+                                <mat-option *ngFor="let m of data.select" value="{{ m.id }}">{{ m.org_name }}</mat-option>
+                            </mat-select>
+                            <mat-icon
+                                class="icon-size-5"
+                                matPrefix
+                                [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <mat-form-field
+                        [ngClass]="formFieldHelpers"
+                        class="flex-auto gt-xs:pr-3">
+                        <mat-label>Company Type</mat-label>
+                        <mat-select  id="company_type" name="company_type" [(ngModel)]="data.formData['company_type']">
+                            <mat-option value="C-Corp">C-Corp</mat-option>
+                            <mat-option value="S-Corp">S-Corp</mat-option>
+                            <mat-option value="LLC">LLC</mat-option>
+                        </mat-select>
+                        <mat-icon
+                            class="icon-size-5"
+                            matPrefix
+                            [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field
+                        [ngClass]="formFieldHelpers"
+                        class="flex-auto gt-xs:pr-3">
+                        <mat-label>Tax ID</mat-label>
+                        <input matInput id="tax_id" name="tax_id" [(ngModel)]="data.formData['tax_id']"  autocomplete="new-password">
+                        <mat-icon
+                            class="icon-size-5"
+                            matSuffix
+                            [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                    </mat-form-field>
+                    <mat-form-field
+                        [ngClass]="formFieldHelpers"
+                        class="flex-auto gt-xs:pr-3">
+                        <mat-label>Number of Employees</mat-label>
+                        <mat-select  id="employee_count" name="employee_count" [(ngModel)]="data.formData['employee_count']">
+                            <mat-option value="0-10">0-10</mat-option>
+                            <mat-option value="11-50">11-50</mat-option>
+                            <mat-option value="51-100">51-100</mat-option>
+                            <mat-option value="Over 100">Over 100</mat-option>
+                        </mat-select>
+                        <mat-icon
+                            class="icon-size-5"
+                            matPrefix
+                            [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field
+                        [ngClass]="formFieldHelpers"
+                        class="flex-auto gt-xs:pr-3">
+                        <mat-label>Contact Name</mat-label>
+                        <input matInput id="contact_name" name="contact" [(ngModel)]="data.formData['contact_name']">
+                        <mat-icon
+                            class="icon-size-5"
+                            matSuffix
+                            [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                    </mat-form-field>
+                    <mat-form-field
+                        [ngClass]="formFieldHelpers"
+                        class="flex-auto gt-xs:pl-3">
+                        <mat-label>Contact Phone</mat-label>
+                        <input matInput id="contact_phone" name="contact_phone" [(ngModel)]="data.formData['contact_phone']" autocomplete="new-password">
+                        <mat-icon
+                            class="icon-size-5"
+                            matSuffix
+                            [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="flex flex-col gt-xs:flex-row">
+                    <mat-form-field
+                        [ngClass]="formFieldHelpers"
+                        class="flex-auto gt-xs:pr-3">
+                        <mat-label>Contact Email</mat-label>
+                        <input matInput id="contact_email" name="contact_email" [(ngModel)]="data.formData['contact_email']" autocomplete="new-password">
+                        <mat-icon
+                            class="icon-size-5"
+                            matSuffix
+                            [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                    </mat-form-field>
+                </div>
+            </form>
+
+
+        </div>
+        <div class="col-xl-5">
+            <form class="flex flex-col mt-8 p-8 pb-4 bg-card rounded-2xl shadow overflow-hidden">
+                <div class="flex">
+                    <mat-form-field
+                        [ngClass]="formFieldHelpers"
+                        class="fuse-mat-textarea flex-auto">
+                        <mat-label>Address</mat-label>
+                        <input
+                            matInput
+                            matTextareaAutosize
+                            id="address" name="address" [(ngModel)]="data.formData['address']" autocomplete="new-password">
+                        <mat-icon
+                            class="icon-size-5"
+                            matSuffix
+                            [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="flex flex-col gt-md:flex-row">
+                    <mat-form-field
+                        [ngClass]="formFieldHelpers"
+                        class="flex-auto gt-md:pr-3">
+                        <mat-label>City</mat-label>
+                        <input matInput  id="city" name="city" [(ngModel)]="data.formData['city']" autocomplete="new-password">
+                        <mat-icon
+                            class="icon-size-5"
+                            matSuffix
+                            [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                    </mat-form-field>
+                    <mat-form-field
+                        [ngClass]="formFieldHelpers"
+                        class="flex-auto gt-md:pl-3">
+                        <mat-label>State</mat-label>
+                        <input matInput  id="state" name="state" [(ngModel)]="data.formData['state']" autocomplete="new-password">
+                        <mat-icon
+                            class="icon-size-5"
+                            matSuffix
+                            [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="flex">
+                    <mat-form-field
+                        [ngClass]="formFieldHelpers"
+                        class="flex-auto">
+                        <mat-label>Postal code</mat-label>
+                        <input
+                            matInput
+                            maxlength="15"
+                            #postalCode
+                            id="zip" name="zip" [(ngModel)]="data.formData['zip']" autocomplete="new-password">
+                        <mat-icon
+                            class="icon-size-5"
+                            matSuffix
+                            [svgIcon]="'heroicons_solid:mail'"></mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="flex flex-col gt-md:flex-row">
+                    <mat-form-field
+                        [ngClass]="formFieldHelpers"
+                        class="flex-auto gt-md:pr-3">
+                        <mat-label>Website</mat-label>
+                        <input matInput  id="website" name="website" [(ngModel)]="data.formData['website']" autocomplete="new-password">
+                        <mat-icon
+                            class="icon-size-5"
+                            matSuffix
+                            [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                    </mat-form-field>
+                    <mat-form-field
+                        [ngClass]="formFieldHelpers"
+                        class="flex-auto gt-xs:pr-3">
+                        <mat-label>Status</mat-label>
+                        <mat-select  id="status" name="status" [(ngModel)]="data.formData['status']">
+                            <mat-option selected value="prospect">Prospect</mat-option>
+                            <mat-option *ngIf="data.user['role']=='sadmin'" value="enrolling">Enrolling</mat-option>
+                            <mat-option *ngIf="data.user['role']=='sadmin'" value="enrolled">Enrolled</mat-option>
+                        </mat-select>
+                        <mat-icon
+                            class="icon-size-5"
+                            matPrefix
+                            [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                    </mat-form-field>
+                    <mat-form-field
+                        [ngClass]="formFieldHelpers"
+                        class="fuse-mat-textarea flex-auto">
+                        <mat-label>Notes</mat-label>
+                        <textarea
+                            matInput
+                            [rows]="3"
+                            matTextareaAutosize
+                            id="dsc" name="dsc" [(ngModel)]="data.formData['dsc']"></textarea>
+                        <mat-icon
+                            class="icon-size-5"
+                            matSuffix
+                            [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700">
+                    <button *ngIf="data.user['role']=='sadmin'" mat-button [routerLink]="['/company-list']">
+                        Cancel
+                    </button>
+                    <button *ngIf="data.user['role']=='badmin'" mat-button [routerLink]="['/badmin']">
+                        Cancel
+                    </button>
+                    <button
+                        class="px-6 ml-3"
+                        mat-flat-button
+                        [color]="'primary'" (click)="postForm()">
+                        Save
+                    </button>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+
+</div>
